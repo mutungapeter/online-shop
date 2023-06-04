@@ -19,6 +19,8 @@
     </article> <!-- gallery-wrap .end// -->
             </aside>
             <main class="col-md-6 border-left">
+
+    {% comment %} <form action=""> </form>           {% endcomment %}
     <article class="content-body">
     
     <h2 class="title">{{single_product.product_name}}</h2>
@@ -74,7 +76,13 @@
         {% if single_product.stock <= 0  %}
         <h3 class="text-danger">out of stock</h3>
         {% else %}
-        <a href="#" class="btn btn-block btn-primary">Add to cart </a>
+        {% if in_cart %}
+        <a href="#" class="btn btn-success"><spna class="text">Added to cart</span> <i class="fas fa-check"></i> </a>
+          <a href="{% url 'cart' %}" class="btn btn-outline-primary"><spna class="text">View in cart</span> <i class="fas fa-eye"></i> </a>
+        
+          {% else %}
+        <a href="{% url 'add_cart' single_product.id %}" class="btn btn-primary"><span class="text">Add to cart</span><i class="fas fa-shopping-cart"></i> </a>
+          {% endif %}
         {% endif %}
       </article> <!-- product-info-aside .// -->
             </main> <!-- col.// -->
