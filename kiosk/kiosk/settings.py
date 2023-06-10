@@ -135,3 +135,16 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger", 
+}
+
+#SMTP CONFIGURATION
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "pitahmutunga68@gmail.com"
+EMAIL_HOST_PASSWORD = "gdpjyecflyhjghmo"
+EMAIL_USE_TLS = True
