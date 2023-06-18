@@ -4,6 +4,8 @@ from store.models import Product, Variation
 # Create your views here.
 from django.http import HttpResponse 
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+
 def _cart_id(request):
     cart = request.session.session_key
     if not cart:
@@ -116,3 +118,27 @@ def cart(request, total=0, quantity=0, cart_items=None):
     }
          
     return render(request, "store/cart.html", context)
+
+@login_required(login_url="login")
+def checkout(request, total=0,tax = 0, grand_total = 0 , quantity=0, cart_items=None):
+    try:
+         cart = Cart.objects.get(cart_id=_cart_id(request))
+         cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+         tax = 0  # Assign a default value to tax
+         grand_total = 0  # Assign a default value to tax
+         for cart_item in cart_items:
+              total += (cart_item.product.price * cart_item.quantity)
+              quantity += cart_item.quantity
+              tax = (2 * total)/100
+              grand_total = total + tax 
+    except ObjectDoesNotExist:
+         pass #just ignore
+    
+    context = {
+         'total': total,
+         'quantity': quantity,
+         'cart_items': cart_items,
+         'tax': tax,
+         'grand_total': grand_total,
+    }
+    return render(request, 'store/checkout.html', context)
