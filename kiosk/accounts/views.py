@@ -7,6 +7,7 @@ from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required   
 from django.http import HttpResponse
 
+from orders.models import Order
 #Verification email
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -142,7 +143,12 @@ def activate(request, uidb64, token):
 
 @login_required(login_url="login")
 def dashboard(request):
-    return render(request, "accounts/dashboard.html")
+    orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
+    orders_count = orders.count()
+    context = {
+        "orders_count": orders_count,
+    }
+    return render(request, "accounts/dashboard.html", context)
 
 def forgotPassword(request):
     if request.method == "POST":
