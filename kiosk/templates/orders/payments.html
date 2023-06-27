@@ -183,10 +183,11 @@ var redirectUrl = "{% url 'order_complete' %}"
                             payment_method: payment_method,
                             status: details.status,
                         }),
+                        
                     })
                     .then((response) => response.json())
                     .then((data) => {
-                        window.location.href = redirectUrl + '?order_number' + data.order_number+ '&payment_id'+ data.transID;
+                      window.location.href = redirectUrl + '?order_number=' + data["order_number"] + '&payment_id=' + data["transID"];
                     });
                 }
 			});

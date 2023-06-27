@@ -141,7 +141,7 @@ def place_order(request, total=0, quantity = 0):
         }
         return render(request, 'orders/payments.html', context)
       else:
-        print(form.errors)  # Print the form errors for debugging purposes
+      #   print(form.errors)  # Print the form errors for debugging purposes
         return HttpResponse("Invalid form data")
       
    else:
@@ -171,8 +171,8 @@ def order_complete(request):
             'subtotal': subtotal,
         }
         return render(request, 'orders/order_complete.html', context)
-    except Exception:
-        return redirect('home')
+    except(Payment.DoesNotExist,  Order.DoesNotExist):
+     return redirect('home')
 
 
 
