@@ -1,4 +1,5 @@
 {% load static %}
+{% comment %} 
 <header class="section-header">
     <nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
     <div class="container">
@@ -39,7 +40,7 @@
         <div class="col-lg col-sm col-md col-6 flex-grow-0">
             <div class="category-wrap dropdown d-inline-block float-right">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> 
-                    <i class="fa fa-bars"></i> All category 
+                    <i class="fa fa-bars"></i> All categories
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{% url 'store' %}">All products</a>
@@ -90,9 +91,109 @@
                 </div> <!-- col.// -->
     </div> <!-- row.// -->
         </div> <!-- container.// -->
-    </section> <!-- header-main .// -->
+    </section> <!-- header-main .// --> 
     
+   
+     {% endcomment %}
+
+
+     <body class="horizontal-layout horizontal-menu 2-columns  navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="2-columns">
+
+        <!-- BEGIN: Header-->
+        <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu  navbar-shadow ">
+            <div class="navbar-header d-xl-block d-none">
+                <ul class="nav navbar-nav flex-row">
+                    <li class="nav-item"><a class="navbar-brand" href="{% url 'home' %}">
+                            <div class="brand-logo" style="margin-left: 50px;">PIGA LUKU</div>
+                        </a></li>
+                </ul>
+            </div>
+            <div class="navbar-wrapper">
+                <div class="navbar-container content">
+                    <div class="navbar-collapse" id="navbar-mobile">
+                        <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
+                            <ul class="nav navbar-nav">
+                            
+                            </ul>
+                            <ul class="nav navbar-nav bookmark-icons">
+                                <li class="nav-item mt-3 mr-4"><div class="category-wrap dropdown d-inline-block float-right">
+                                    <button type="button" class="btn btn-primary dropdown-toggle MT-3" data-toggle="dropdown"> 
+                                        <i class="fa fa-bars"></i> All categories
+                                    </button>
+                                    <div class="dropdown-menu mt-2">
+                                        <a class="dropdown-item mt-2" href="{% url 'store' %}">All products</a>
+                                        {% for category in links  %}
+                                        <a class="dropdown-item" href="{{category.get_url}}">{{ category.category_name }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </li>
+                                <li class="nav-item d-none d-lg-block"><a class="nav-link" href="" data-toggle="tooltip" data-placement="top" title="Email"> <a href="{% url 'store'%}" class="btn btn-outline-primary mb-2">Store</a></a></li>
+                               </ul>
+                          
+                        </div>
+                        <style>
+                            .user-icon {
+                                position: relative;
+                                display: inline-block;
+                              }
+                              
+                              .user-icon .badge {
+                                position: absolute;
+                                top: -8px;
+                                right: -9px;
+                              }
+                              
+                        </style>
+                        <ul class="nav navbar-nav float-right">
+                           
+                           <li class="nav-item "><a class="nav-link"><span class="user-icon">
+                            <i class="ficon feather icon-shopping-cart"></i>
+                            <span class="badge badge-pill badge-danger notify">{{ cart_count }}</span>
+                          </span></a>
+                                
+                                <li class="dropdown dropdown-user nav-item">
+                                    <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                      <div class="user-nav d-sm-flex d-none">
+                                        <!-- <span class="user-icon">
+                                          <i class="ficon feather icon-shopping-cart"></i>
+                                          <span class="badge badge-pill badge-danger notify">{{ cart_count }}</span>
+                                        </span> -->
+                                        <span class=" text-bold-600 mt-2 ml-7" style="margin-right: 20px;">Cart<i class="ficon feather icon-chevron-down mb-1 ml-1"></i></span>
+                                      </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                      <a class="dropdown-item" href="{% url 'cart' %}">View My Cart</a>
+                                    </div>
+                                  </li>
+                                  
+                        </li>
+                        {% if user.id is  None %} 
+                        
+                        
+                            <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                <!-- <span><small class="title text-muted mb-3">Welcome guest!</small></span> -->
+                                    <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600 mt-1 ml-2"><i class="ficon feather icon-user"></i>My Account<i class="ficon feather icon-chevron-down ml-1"></i></span></div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{% url 'my_orders' %}"><i class="feather icon-box"></i> Orders</a>
+                                    <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'login' %}"><i class="feather icon-power"></i> Login</a>
+                                </div>
+                            </li>
+                            {% else %}
+                            <!-- <small class="title text-muted mt-2">Welcome {{user.first_name}}</small> -->
+                            <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600 mt-1 ml-2"><i class="ficon feather icon-user"></i>My Account<i class="ficon feather icon-chevron-down ml-1"></i></span></div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{% url 'my_orders' %}"><i class="feather icon-box"></i> Orders</a><a class="dropdown-item" href="{% url 'dashboard' %}"><i class="feather icon-box"></i> dashboard</a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'logout' %}"><i class="feather icon-power"></i> Logout</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+    </body>
     
-    
-    
-    </header>

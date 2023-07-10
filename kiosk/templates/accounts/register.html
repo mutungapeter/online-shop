@@ -3,7 +3,7 @@
 {% block content %}
 
 <!-- ========================= SECTION CONTENT ========================= -->
-<section class="section-content padding-y">
+{% comment %} <section class="section-content padding-y">
 
     <!-- ============================ COMPONENT REGISTER   ================================= -->
         <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
@@ -56,9 +56,117 @@
     <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
     
     
-    </section>
+    </section> {% endcomment %}
     <!-- ========================= SECTION CONTENT END// ========================= -->
     
+    <body class="horizontal-layout horizontal-menu 2-columns    " data-open="hover" data-menu="horizontal-menu" data-col="2-columns">
+        <!-- BEGIN: Content-->
+        <div class="app-content content">
+            <div class="content-overlay"></div>
+            <div class="header-navbar-shadow"></div>
+            <div class="content-wrapper">
+                <div class="content-body">
+                 
     
+                    <!-- // Basic multiple Column Form section start -->
+                    <section id="multiple-column-form">
+                        <div class="row match-height">
+                            <div class="col-12">
+                                <div class="card" style="max-width:500px; margin-left: 250px; ">
+                                    <div class="card-header pb-1">
+                                        <div class="card-title">
+                                         <h4 class="mb-0 text-center" >PIGA LUKU</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-header">
+                                        <h4 class="card-title">SignUp</h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            {% include "includes/alerts.html" %}
+                                            <form class="form" action="{% url 'register' %}" method="POST">
+                                                {% csrf_token %}
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-12">
+                                                            <div class="form-label-group">
+                                                                <!-- <input type="text" id="first-name-column" class="form-control" placeholder="First Name" name="first_name"> -->
+                                                                <label for="first-name-column">First Name</label>
+                                                                {{ form.first_name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-12">
+                                                            <div class="form-label-group">
+                                                                <!-- <input type="text" id="last-name-column" class="form-control" placeholder="Last Name" name="first_name"> -->
+                                                                <label for="last-name-column">Last Name</label>
+                                                                {{ form.last_name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-12">
+                                                            <div class="form-label-group">
+                                                                <!-- <input type="text" id="" class="form-control" placeholder="phone number" name="phone_number"> -->
+                                                                <label for="">Phone Mumber</label>
+                                                                {{ form.phone_number }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-12">
+                                                            <div class="form-label-group">
+                                                                <!-- <input type="text" id="" class="form-control" name="email" placeholder="Email"> -->
+                                                                <label for="country-floating">Email</label>
+                                                                {{ form.email }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-12">
+                                                            <div class="form-label-group">
+                                                                <!-- <input type="password" id="" class="form-control" name="password" placeholder="Password"> -->
+                                                                <label for="">Create Password</label>
+                                                                {{ form.password}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-12">
+                                                            <div class="form-label-group">
+                                                                <!-- <input type="confirm_password" id="" class="form-control" name="confirm_password" placeholder="Confirm Password"> -->
+                                                                <label for="">Repeat Password</label>
+                                                                {{ form.confirm_password}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-12">
+                                                            <fieldset class="checkbox">
+                                                                <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                    <input type="checkbox">
+                                                                    <span class="vs-checkbox">
+                                                                        <span class="vs-checkbox--check">
+                                                                            <i class="vs-icon feather icon-check"></i>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="">Remember me</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <button type="submit"
+                                                        class="btn btn-primary  btn-block text-center float-right btn-inline">Rgister</button>
+
+                                                    </div>
+                                                </div>
+                                                {{form.email.errors}}
+                                                {{form.non_field_errors}}
+                                            </form>
+                                            <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Log In</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- // Basic Floating Label Form section end -->
+    
+                </div>
+            </div>
+        </div>
+     
+        <!-- BEGIN: Page JS-->
+        <!-- END: Page JS-->
+    
+    </body>
 
 {% endblock %}
