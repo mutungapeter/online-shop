@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 # AUTH_USER_MODEL = 'accounts.Account'
 
 
@@ -92,7 +92,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'kiosk.wsgi.application'
 
 
-AUTH_USER_MODEL = "accounts.Account"
+# AUTH_USER_MODEL = "accounts.Account"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
