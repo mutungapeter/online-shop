@@ -31,3 +31,7 @@ urlpatterns = [
     path('orders/', include('orders.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header  =  "PIGA LUKU ONLINE STORE"  
+admin.site.site_title  =  "PIGA LUKU admin site"
+admin.site.index_title  =  "PIGA LUKU Admin"

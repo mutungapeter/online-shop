@@ -20,58 +20,38 @@
             
     <div class="card">
         <article class="filter-group">
-            <header class="card-header">
-                <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
-                    <i class="icon-control fa fa-chevron-down"></i>
-                    <h6 class="title">Categories</h6>
-                </a>
-            </header>
-            <div class="filter-content collapse show" id="collapse_1" style="">
-                <div class="card-body" style="height: 200px;" width="100">
-                    
-                    <ul class="list-menu category-wrap dropdown ">
-                        <li><a href="{% url 'store' %}">All products</a></li>
-                        {% for category in links %}
-                    <li><a href="{{category.get_url}}">{{category.category_name}}</a></li>
-                        {% endfor %}
-                    </ul>
-    
-                </div> <!-- card-body.// -->
-            </div>
+            <section id="dropdown-directions">
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="card">
+                          <div class="card-header">
+                              <h4 class="card-title"><small>Filter products using options in below dropdown</small></h4>
+                          </div>
+                          <div class="card-content">
+                              <div class="card-body">
+                                  <div class="direction-dropdown-default mt-1">
+                                      <div class="btn-group mr-1 mb-1">
+                                          <div class="dropdown ">
+                                              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                 Categories
+                                              </button>
+                                              <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="{% url 'store' %}">All products</a>
+                                                {% for category in links %}
+                                                  <a class="dropdown-item" href="{{category.get_url}}">{{category.category_name}}</a>
+                                                  {% endfor %}
+                                              </div>
+                                          </div>
+                                      </div>
+                                     
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
         </article> <!-- filter-group  .// -->
-        <article class="filter-group">
-            <header class="card-header">
-                <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
-                    
-                    <h6 class="title"> </h6>
-                </a>
-            </header>
-            <div class="filter-content collapse show" id="collapse_4" style="">
-                <div class="card-body">
-                  <label class="checkbox-btn">
-                    <input type="">
-                    <span class="">  </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class=""> </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class=""> </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="   ">  </span>
-                  </label>
-            </div><!-- card-body.// -->
-            </div>
-        </article> <!-- filter-group .// -->
-        
-        
     </div> <!-- card.// -->
     
         </aside> <!-- col.// -->
@@ -96,8 +76,8 @@
                 <figcaption class="info-wrap">
                     <div class="fix-height">
                         <a href="{{product.get_url}}" class="title">{{product.product_name}}</a>
-                        <div class="price-wrap mt-2">
-                            <span class="price">ksh {{product.price}}</span>
+                        <div class="price-wrap mt-1">
+                            <span class="price mb-2">ksh {{product.price}}</span>
                             <del class="price-old">ksh 1980</del>
                         </div> <!-- price-wrap.// -->
                     </div>

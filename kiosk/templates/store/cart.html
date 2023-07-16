@@ -7,7 +7,7 @@
 {% if not cart_items %}
 <h2 class="text-center">Your Shoppping cart is empty</h2>
 <div class="text-center">
-  <a href="{% url 'store' %}" class="btn btn-primary">Continue shopping</a>
+  <a href="{% url 'store' %}" class="btn btn-info">Continue shopping</a>
 </div>
 {% else %}
     <div class="row">
@@ -51,7 +51,7 @@
                     <div class="input-group input-spinner">
                       <div class="input-group-prepend">
                         <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}"
-                          class="btn btn-light"
+                          class="btn btn-primary"
                           type="button"
                           id="button-minus"
                         >
@@ -66,7 +66,7 @@
                           <input type="hidden" name="{{ item.variation_category | lower }}" value="{{item.variation_value | capfirst}}">
                       {% endfor %}
                       <button type="submit"
-                          class="btn btn-light"
+                          class="btn btn-primary"
                           type="button"
                           id="button-plus"
                         >
@@ -100,12 +100,15 @@
       <aside class="col-lg-3">
         <div class="card">
           <div class="card-body">
+            <div class="card-title mb-1 text-dark">
+              Order Summary
+            </div>
             <dl class="dlist-align">
               <dt>Total price:</dt>
               <dd class="text-right">ksh {{total}}</dd>
             </dl>
             <dl class="dlist-align">
-              <dt>Tax:</dt>
+              <dt>Delivery Fee:</dt>
               <dd class="text-right">ksh {{tax}}</dd>
             </dl>
             <dl class="dlist-align">
@@ -113,13 +116,11 @@
               <dd class="text-right text-dark b"><strong>ksh {{grand_total}}</strong></dd>
             </dl>
             <hr />
-            <p class="text-center mb-3">
-              <img src="{% static './images/misc/payments.png' %}" height="26" />
-            </p>
+           
             <a href="{% url 'checkout' %}" class="btn btn-primary btn-block">
               Checkout
             </a>
-            <a href="{% url 'store' %}" class="btn btn-light btn-block"
+            <a href="{% url 'store' %}" class="btn btn-secondary btn-block"
               >Continue Shopping</a
             >
           </div>

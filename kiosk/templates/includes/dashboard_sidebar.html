@@ -1,6 +1,7 @@
-<aside class="col-md-3">
+<aside class="col-md-3 offest-md-3">
+    <div class="card">
     <!--   SIDEBAR   -->
-    <ul class="list-group">
+    <ul class="list-group list-group-flush">
         <a class="list-group-item {% if '/accounts/' == request.path  %}active{% endif %}" href="{% url 'dashboard' %}"> Dashboard </a>
         <a class="list-group-item {% if '/my_orders/' in request.path  %}active{% endif %}" href="{% url 'my_orders' %}"> My Orders </a>
         <a class="list-group-item {% if '/edit_profile/' in request.path  %}active{% endif %}" href="{% url 'edit_profile' %}" href="{% url 'edit_profile' %}"> Edit Profile </a>
@@ -9,6 +10,7 @@
 
     </ul>
     <br>
-    <a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a> 
+    <a class="btn btn-danger btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a> 
     <!--   SIDEBAR .//END   -->
+</div>   
 </aside>

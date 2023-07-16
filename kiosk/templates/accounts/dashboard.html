@@ -13,15 +13,15 @@
             <article class="card">
             <header class="card-header">
                 <strong class="d-inline-block mr-3">Logged in as: </strong>
-                <span>{{user.full_name}}</span>
+                <span  class="badge badge-primary badge-pill">{{user.full_name}}</span>
             </header>
             <div class="card-body">
                 <div class="row"> 
                     <div class="col-md-6">
                         <div class="card" style="text-align:center;">
                             <div class="card-body">
-                                <h5 lass="card-title">Total Orders</h5>
-                                <h4>{{orders_count}}</h4>
+                                <h4 lass="card-title"><span class="badge badge-primary badge-pill">Total Orders</span></h4>
+                                <h4><span class="badge badge-warning badge-pill">{{orders_count}}</span></h4>
                                 <a href="{% url 'my_orders' %}">View Orders</a>
                                
                             </div>
@@ -31,8 +31,8 @@
                         <div class="card" style="text-align:center;">
                             <div class="card-body">
                                <img src="{{userprofile.profile_picture.url}}" alt="User Profile Picture" width="50" height="50" , style="border-radius:50%">
-                                <p class="mb-0">{{user.email}}</p>
-                                <p>{{user.phone_number}}</p>
+                                <p class="mb-0"><span class="badge badge-secondary badge-pill">{{user.email}}</span></p>
+                                <p><span class="badge badge-secondary badge-pill">{{user.phone_number}}</span></p>
 
                             </div>
                         </div>

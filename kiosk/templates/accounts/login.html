@@ -2,64 +2,13 @@
 
 {% block content %}
 
-{% comment %} 
 <!-- ========================= SECTION CONTENT ========================= -->
-<section class="section-conten padding-y" style="min-height:84vh">
-{% if request.GET.command == 'verification' %}
-<div class="container max-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:100px;">
-  Thank you for registering with us. We have have sent a verification email to your email address[{{request.GET.email}}].Please Verify it.
-  <br></br>
-  Already verified? <a href="{% url 'login' %}">Login</a>
-</div>
 
-{% else %}
-<!-- ============================ COMPONENT LOGIN   ================================= -->
-<div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
-  <div class="card-body">
-          <h4 class="card-title mb-4">Sign in</h4>
-          {% include 'includes/alerts.html' %}
-          <form action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-              <input type="email" class="form-control" placeholder="Email Address" name="email" >
-            </div> <!-- form-group// -->
-            <div class="form-group">
-              <input type="password" class="form-control" placeholder="Password" name="password" >
-            </div> <!-- form-group// -->
-            
-            <div class="form-group">
-              <a href="{% url 'forgotPassword' %}" class="float-right">Forgot password?</a> 
-              
-            </div> <!-- form-group form-check .// -->
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-            </div> <!-- form-group// -->    
-          </form>
-        </div> <!-- card-body.// -->
-      </div> <!-- card .// -->
-      
-      <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
-      <br><br>
-      <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
-      
-      {% endif %}
-    </section>
-    <!-- ========================= SECTION CONTENT END// ========================= -->
-    
-     {% endcomment %}
-    
-     <body class="horizontal-layout horizontal-menu 1-column  navbar-floating footer-static   blank-page blank-page" data-open="hover" data-menu="horizontal-menu" data-col="1-column"> 
-      <!-- BEGIN: Content-->
-      <div class="app-content content">
-          <div class="content-overlay"></div>
-          <div class="header-navbar-shadow"></div>
           <div class="content-wrapper">
-              <div class="content-header row">
-              </div>
               <div class="content-body body">
                   <section class="row flexbox-container row">
-                      <div class="col-xl-12 col-11 d-flex justify-content-center" style="height: 500px;">
-                          <div class="card bg-authentication rounded-0 mb-5">
+                      <div class="col-xl-12 col-11 d-flex justify-content-center" >
+                          <div class="card bg-authentication rounded-0 mb-5" >
                               <div class="col-lg-12 col-12 p-0">
                                    <!-- <div class="img">
                                     <img src=""
@@ -76,28 +25,28 @@
                                    </div>
                                    
                                    {% else %}
-                                      <div class="card rounded-0 mb-0 px-2" >
+                                      <div class="card rounded-0 mb-0 px-2"style="height: 500px;" >
                                           <div class="card-header pb-1">
                                               <div class="card-title">
-                                               <h4 class="mb-0 text-center" >PIGA LUKU</h4>
+                                               <h4 class="mb-0 text-center" >FURNITURE SHOP</h4>
                                               </div>
                                           </div>
-                                          {% include 'includes/alerts.html' %}
                                           <p class="px-2">Welcome back  please login to your account.</p>
   
                                                   <div class="card-content">
                                                       <div class="card-body pt-1" style="height: 330px;">
+                                                        {% include 'includes/alerts.html' %}
                                                           <form  action="{% url 'login' %}" method="POST">
                                                             {% csrf_token %}
                                                               <fieldset
-                                                                  class="form-label-group form-group position-relative ">
+                                                                  class="form-label-group form-group position-relative mt-2 mb-1">
                                                                   <input type="text" class="form-control" name="email"
                                                                       id="" placeholder="email" required>
   
                                                                   <label for="email">Email</label>
                                                               </fieldset>
   
-                                                              <fieldset class="form-label-group position-relative">
+                                                              <fieldset class="form-label-group position-relative mt-4">
                                                                   <input type="password" class="form-control"
                                                                       name="password" id=""
                                                                       placeholder="Password" required>
@@ -107,7 +56,7 @@
                                                               <div
                                                                   class="form-group d-flex justify-content-between align-items-center">
                                                                   <div class="text-left">
-                                                               <div class="text-right"><p class="text-center ">New to Piga Luku? <a href="{% url 'register' %}">Create Account</a></p></div>
+                                                               <div class="text-right"><p class="text-center ">New to Online Furniture shop? <a href="{% url 'register' %}">Create Account</a></p></div>
                                                               </div>
                                                                   <div class="text-left" style="margin-left: 50px;"> <a href="{% url 'forgotPassword' %}" class="float-right">Forgot password?</a>
                                                                       </div>
@@ -140,6 +89,6 @@
   
               </div>
           </div>
-      </div>
-    </body>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
     {% endblock %}
