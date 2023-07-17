@@ -1,16 +1,46 @@
 <aside class="col-md-3 offest-md-3">
     <div class="card">
     <!--   SIDEBAR   -->
+    {% if user.is_authenticated and user.is_active and not user.is_admin and not user.is_superadmin %}
     <ul class="list-group list-group-flush">
         <a class="list-group-item {% if '/accounts/' == request.path  %}active{% endif %}" href="{% url 'dashboard' %}"> Dashboard </a>
         <a class="list-group-item {% if '/my_orders/' in request.path  %}active{% endif %}" href="{% url 'my_orders' %}"> My Orders </a>
         <a class="list-group-item {% if '/edit_profile/' in request.path  %}active{% endif %}" href="{% url 'edit_profile' %}" href="{% url 'edit_profile' %}"> Edit Profile </a>
         <a class="list-group-item {% if '/change_password/' in request.path  %}active{% endif %}" href="{% url 'change_password' %}" href="{% url 'change_password' %}"> Change Password </a>
-       
-
     </ul>
+{% endif %}
+
+    <!-- {% if user.is_authenticated %}
+    User is authenticated.
+    {% else %}
+    User is not authenticated.
+    {% endif %}
+    
+    {% if user.is_adminr %}
+    User is a superadmin.
+    {% else %}
+    User is not a superadmin.
+    {% endif %} -->
+
+    {% if user.is_authenticated and user.is_superadmin %}
+
+    <ul class="list-group list-group-flush">
+        <a class="list-group-item {% if '/accounts/' == request.path  %}active{% endif %}" href="{% url 'dashboard' %}"> Dashboard </a>
+        {% comment %} <a class="list-group-item {% if '//' == request.path  %}active{% endif %}" href="#">Users</a> {% endcomment %}
+        <a class="list-group-item {% if '/categories/'  in request.path %}active{% endif %}" href="{% url 'categories' %}"> Categories</a>
+       
+        <a class="list-group-item {% if '/ordered_products/'  in request.path %}active{% endif %}" href="{% url 'ordered_products' %}"> Ordered Products</a>
+        <a class="list-group-item {% if '/orders_list/'  in request.path %}active{% endif %}" href="{% url 'orders_list' %}"> Orders</a>
+        <a class="list-group-item {% if '/payments_list/'  in request.path %}active{% endif %}" href="{% url 'payments_list' %}"> Payments</a>
+        <a class="list-group-item {% if '/products/'  in request.path %}active{% endif %}" href="{% url 'products' %}"> Products</a>
+        <a class="list-group-item {% if '/product_gallery/'  in request.path %}active{% endif %}" href="{% url 'product_gallery' %}">Product Gallery</a>
+        <a class="list-group-item {% if '/product_variation/'  in request.path %}active{% endif %}" href="{% url 'product_variation' %}">Variations</a>
+       
+    </ul>
+    {% endif %}
     <br>
     <a class="btn btn-danger btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a> 
     <!--   SIDEBAR .//END   -->
 </div>   
 </aside>
+

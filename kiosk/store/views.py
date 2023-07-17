@@ -1,14 +1,14 @@
 from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product
+from .models import Product, Variation
 from category.models import Category
 from django.db.models import Q
 from carts.models import CartItem
 from carts.views import _cart_id
 from orders.models import OrderProduct
 from .models import ReviewRating, ProductGallery
-from .forms import ReviewForm
+from .forms import ReviewForm, ProductForm, GalleryForm, VariationForm
 # Create your views here.
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 
@@ -97,3 +97,82 @@ def submit_review(request, product_id):
                 data.save()
                 messages.success(request, "Thank you! Your review has been submitted.")
                 return redirect(url)
+
+def add_product(request):
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save() 
+            gallery_images = request.FILES.getlist("gallery_images")
+            for image in gallery_images:
+                ProductGallery.objects.create(product=product, image=image)
+            messages.success(request, "Product added successfully.")
+            return redirect("products")
+    else:
+        form = ProductForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "store/add_product.html", context)
+
+
+
+
+def products(request):
+    products_list = Product.objects.all()
+    context = {
+    "products_list": products_list,
+}
+    return render(request, "store/products_list.html", context)
+
+
+def add_gallery(request):
+    if request.method == "POST":
+        form = GalleryForm(request.POST, request.FILES)
+        if form.is_valid():
+            gallery = form.save() 
+            messages.success(request, "Product gallery added successfully.")
+            return redirect("product_gallery")
+    else:
+        form = GalleryForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "store/add_product_gallery.html", context)
+
+
+
+
+def product_gallery(request):
+    products_gallery = ProductGallery.objects.all()
+    context = {
+    "products_gallery": products_gallery,
+}
+    return render(request, "store/products_gallery.html", context)
+
+
+
+def add_variation(request):
+    if request.method == "POST":
+        form = VariationForm(request.POST, request.FILES)
+        if form.is_valid():
+            variation = form.save() 
+            messages.success(request, "Product Variation added successfully.")
+            return redirect("product_variation")
+    else:
+        form = VariationForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "store/add_product_variation.html", context)
+
+
+
+
+def product_variation(request):
+    product_variations = Variation.objects.all()
+    context = {
+    "product_variations": product_variations,
+}
+    return render(request, "store/product_variations.html", context)
+

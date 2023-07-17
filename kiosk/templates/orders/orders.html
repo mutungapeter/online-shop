@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+{% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+        {% include 'includes/dashboard_sidebar.html' %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">Orders</strong>
+        </header>
+              <!-- Zero configuration table -->
+              <section id="basic-datatable">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">All Orders</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body card-dashboard">
+                                    <p class="card-text"></p>
+                                    <div class="table-responsive">
+                                        <table class="table zero-configuration">
+                                          <thead>
+                                            <tr>
+                                            <th scope="col">No.</th>
+                                            <th scope="col">Order Number</th>
+                                            <th scope="col">Full Name</th>
+                                            <th scope="col">Phone</th>
+                                            {% comment %} <th scope="col">Email</th> {% endcomment %}
+                                            {% comment %} <th scope="col">City</th> {% endcomment %}
+                                            <th scope="col">Order Total</th>
+                                            <th scope="col">Shipping Fee</th>
+                                            {% comment %} <th scope="col">Order Status</th> {% endcomment %}
+                                            <th scope="col">Payment</th>
+                                            <th scope="col">Is Ordered</th>
+                                            <th scope="col">Order date</th>
+                                            
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {% for object in orders_list %}
+
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ object.order_number}}</td>
+                                                <td>{{object.user.full_name}}</td>
+                                                <td>{{object.phone}}</td>
+                                                {% comment %} <td>{{object.email}}</td> {% endcomment %}
+                                                {% comment %} <td>{{object.city}}</td> {% endcomment %}
+                                                <td>Ksh {{object.order_total}}</td>
+                                                <td>Ksh {{object.tax}}</td>
+                                                {% comment %} <td>{{object.status}}</td> {% endcomment %}
+                                                <td><span class="badge badge-success badge-pill">{{object.payment.status}}</span></td>
+                                                <td>{{object.is_ordered}}</td>
+                                                <td>{{object.created_at}}</td>
+                                                {% comment %} <td><span class="badge badge-success badge-pill">{{object.order.payment.status}}</span></td> {% endcomment %}
+                                              </tr>
+                                            {% endfor %}
+                                            
+                                          </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th >No.</th>
+                                                    <th >Order Number</th>
+                                                    <th >Full Name</th>
+                                                    <th >Phone</th>
+                                                    {% comment %} <th >Email</th> {% endcomment %}
+                                                    {% comment %} <th >City</th> {% endcomment %}
+                                                    <th >Order Total</th>
+                                                    <th >Shipping Fee</th>
+                                                    {% comment %} <th >Status</th> {% endcomment %}
+                                                    <th >Payment</th>
+                                                    <th >Is Ordered</th>
+                                                    <th >Order date</th>
+                                                    
+                                                    
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </article> <!-- order-group.// --> 
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+  
+{% endblock %}

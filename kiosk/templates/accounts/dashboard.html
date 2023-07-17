@@ -17,6 +17,7 @@
             </header>
             <div class="card-body">
                 <div class="row"> 
+                    {% if user.is_authenticated and user.is_active and not user.is_admin and not user.is_superadmin %}
                     <div class="col-md-6">
                         <div class="card" style="text-align:center;">
                             <div class="card-body">
@@ -27,12 +28,17 @@
                             </div>
                         </div>
                      </div>
-                     <div class="col-md-6">
+                     {% endif %}
+                     <div class="col-md-12">
                         <div class="card" style="text-align:center;">
                             <div class="card-body">
-                               <img src="{{userprofile.profile_picture.url}}" alt="User Profile Picture" width="50" height="50" , style="border-radius:50%">
-                                <p class="mb-0"><span class="badge badge-secondary badge-pill">{{user.email}}</span></p>
-                                <p><span class="badge badge-secondary badge-pill">{{user.phone_number}}</span></p>
+                        {% if userprofile.profile_picture %}
+                        <img src="{{userprofile.profile_picture.url}}" alt="Profile Picture" width="100" style="border-radius:50px">
+                        {% else %}
+                        <img src="#" alt="No Picture">
+                        {% endif %}
+                                <p class="mb-0"><span class="badge badge-warning badge-pill">{{user.email}}</span></p>
+                                <p><span class="badge badge-danger badge-pill">{{user.phone_number}}</span></p>
 
                             </div>
                         </div>

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+{% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+        {% include 'includes/dashboard_sidebar.html' %}
+        <main class="col-md-9">
+            <article class="card">
+      <div class="content-wrapper">
+          <div class="content-body">
+              <section class="row flexbox-container">
+                  <div class="col-md-12 d-flex justify-content-center">
+                      <div class="card bg-authentication rounded-0 mb-0 w-100">
+                          <div class="row m-0">
+                            
+                              <div class="col-md-12 p-0">
+                                  <div class="card rounded-0 mb-0 px-2">
+                                      <div class="card-header pb-1">
+                                          <div class="card-title">
+                                              <h4 class="mb-0">Add Product</h4>
+                                          </div>
+                                      </div>
+                                      <p class="px-2">.</p>
+                                      <div class="card-content">
+                                          <div class="card-body pt-1 ">
+                                            <form action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data">
+                                              {% csrf_token %}
+                                                  <fieldset class="form-label-group">
+                                                    <input type="text" name="product_name" placeholder="Product Name" class="form-control" required>
+                                                      <label for="current_password">Product Name </label>
+                                                  </fieldset>
+                                                <fieldset class="form-label-group">
+                                                    <input type="text" name="slug" placeholder="Slug" class="form-control" required value="{{ form.initial.slug }}">
+                                                    <label for="slug">Slug</label>
+                                                </fieldset>
+                                                  <fieldset class="form-label-group">
+                                                    <input type="text" name="description" placeholder="Description" class="form-control" required>
+                                                    <label for="">Description</label>
+                                                  </fieldset>
+                                                <fieldset class="form-label-group">
+                                                    <input type="text" name="price" placeholder="Price" class="form-control" required value="{{ form.initial.slug }}">
+                                                    <label for="slug">Price</label>
+                                                </fieldset>
+                                                <fieldset class="form-label-group">
+                                                    <input type="number" name="stock" placeholder="Stock" class="form-control" required>
+                                                    <label for="id_stock">Stock</label>
+                                                </fieldset>
+                                                
+                                                  <fieldset class="form-label-group">
+                                                    <select name="category" class="form-control" required>
+                                                        <option value="" selected disabled>Choose a category</option>
+                                                        {% for category in form.fields.category.choices %}
+                                                            <option value="{{ category.0 }}">{{ category.1 }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <label for="id_category">Category</label>
+                                                </fieldset>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" name="is_available" class="form-check-input" id="id_is_available" checked>
+                                                        <label class="form-check-label text-dark" for="id_is_available">Is Available</label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <fieldset class="form-label-group mt-2">
+                                                    <input type="file" name="images" placeholder="Category Image" class="form-control" required>
+                                                    <label for="">Product image</label>
+                                                </fieldset>
+                                                <fieldset class="form-label-group">
+                                                    <input type="file" name="gallery_images"  class="form-control" multiple required>
+                                                    <label for="">Gallery Images</label>
+                                                </fieldset>
+                                                
+                                                  <div class="row pt-2">
+                                                      <div class="col-12 col-md-12 mb-1">
+                                                          <button type="submit" class="btn btn-primary btn-block ">Add Product</button>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                              {{ form.errors }}
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+
+          </div>
+      </div>
+            </article> 
+        </main>
+    </div>
+    </div>
+    
+    
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+    
+
+  
+{% endblock %}

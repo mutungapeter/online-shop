@@ -9,57 +9,60 @@
     <div class="container">
         <div class="row">
         {% include 'includes/dashboard_sidebar.html' %}
-        {% if user.is_authenticated and user.is_active and not user.is_admin and not user.is_superadmin %}
         <main class="col-md-9">
             <article class="card">
             <header class="card-header">
-                <strong class="d-inline-block mr-3">Your Order History: </strong>
-              
-            </header>
+                <strong class="d-inline-block mr-3">Payments</strong>
+        </header>
               <!-- Zero configuration table -->
               <section id="basic-datatable">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Recent Orders and All Orders</h4>
+                                <h4 class="card-title">All Payments</h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body card-dashboard">
-                                    <p class="card-text">You can as well click on the order number to view order in detail</p>
+                                    <p class="card-text"></p>
                                     <div class="table-responsive">
                                         <table class="table zero-configuration">
                                           <thead>
                                             <tr>
-                                              <th scope="col">Order #</th>
-                                              <th scope="col">Billing Name</th>
-                                              <th scope="col">Phone</th>
-                                              <th scope="col">Order Total</th>
-                                              <th scope="col">Payment Status</th>
-                                              <th scope="col">Date</th>
+                                            <th scope="col">No.</th>
+                                            <th scope="col">User</th>
+                                            <th scope="col">Payment ID</th>
+                                            <th scope="col">Payment Method</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Payment Date</th>
+                                        
+                                            
                                             </tr>
                                           </thead>
                                           <tbody>
-                                              {% for order in orders %}
+                                            {% for object in payments %}
+
                                             <tr>
-                                              <th scope="row"><a href="{% url 'order_detail' order.order_number %}">{{order.order_number}}</a></th>
-                                              <td>{{order.full_name}}</td>
-                                              <td>{{order.phone}}</td>
-                                              <td>Ksh {{order.order_total}}</td>
-                                              <td><span class="badge badge-success badge-pill">{{order.payment.status}}</span></td>
-                                              <td>{{order.created_at}}</td>
-                                            </tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ object.user.full_name}}</td>
+                                                <td>{{object.payment.payment_id}}</td>
+                                                <td>{{object.payment.payment_method}}</td>
+                                                <td><span class="badge badge-success badge-pill">{{object.payment.status}}</span></td>
+                                                <td>{{object.created_at}}</td>
+                                                {% comment %} <td><span class="badge badge-success badge-pill">{{object.order.payment.status}}</span></td> {% endcomment %}
+                                              </tr>
                                             {% endfor %}
                                             
                                           </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Order  Number</th>
-                                                    <th>Billing Name</th>
-                                                    <th>Phone</th>
-                                                    <th>Order Total</th>
-                                                    <th>Payment Status</th>
-                                                    <th>Order date</th>
+                                                    <th>No.</th>
+                                                    <th >User</th>
+                                                    <th >Payment ID</th>
+                                                    <th >Payment Method</th>
+                                                    <th >Status</th>
+                                                    <th >Payment Date</th>
+                                                    
                                                     
                                                 </tr>
                                             </tfoot>
@@ -73,7 +76,6 @@
             </section>
             </article> <!-- order-group.// --> 
         </main>
-        {% endif %}
     </div> <!-- row.// -->
     </div>
     

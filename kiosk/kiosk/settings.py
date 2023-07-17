@@ -29,14 +29,12 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'accounts.Account'
-LOGIN_REDIRECT_URL = 'admin:index'
+# LOGIN_REDIRECT_URL = 'admin:index'
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'adminlte3',
-    'adminlte3_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

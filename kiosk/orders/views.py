@@ -177,4 +177,31 @@ def order_complete(request):
 
 
 
-   
+def order_products(request):
+   ordered_products = OrderProduct.objects.all()
+   context = {
+    "ordered_products": ordered_products,
+   }
+
+   return render(request, "orders/ordered_products.html", context)
+
+
+def all_orders(request):
+   orders_list = Order.objects.all()
+   context = {
+    "orders_list": orders_list,
+   }
+
+
+   return render(request, "orders/orders.html ", context)
+
+
+def all_payments(request):
+   payments = Order.objects.all()
+   context = {
+    "payments": payments,
+   }
+
+
+   return render(request, "orders/all_payments.html ", context)
+

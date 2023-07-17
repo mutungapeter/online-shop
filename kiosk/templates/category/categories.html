@@ -9,12 +9,12 @@
     <div class="container">
         <div class="row">
         {% include 'includes/dashboard_sidebar.html' %}
-        {% if user.is_authenticated and user.is_active and not user.is_admin and not user.is_superadmin %}
         <main class="col-md-9">
             <article class="card">
             <header class="card-header">
-                <strong class="d-inline-block mr-3">Your Order History: </strong>
-              
+                <strong class="d-inline-block mr-3">Categories</strong>
+                <a href="{% url 'add_category' %}" class="btn btn-primary   text-center float-right btn-inline">Add Category</a>
+
             </header>
               <!-- Zero configuration table -->
               <section id="basic-datatable">
@@ -22,44 +22,46 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Recent Orders and All Orders</h4>
+                                <h4 class="card-title">All categories</h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body card-dashboard">
-                                    <p class="card-text">You can as well click on the order number to view order in detail</p>
+                                    <p class="card-text">You can as well click on to view category in detail</p>
                                     <div class="table-responsive">
                                         <table class="table zero-configuration">
                                           <thead>
                                             <tr>
-                                              <th scope="col">Order #</th>
-                                              <th scope="col">Billing Name</th>
-                                              <th scope="col">Phone</th>
-                                              <th scope="col">Order Total</th>
-                                              <th scope="col">Payment Status</th>
-                                              <th scope="col">Date</th>
+                                            <th scope="col">No.</th>
+                                              <th scope="col">Category Name</th>
+                                              <th scope="col">slug</th>
+                                              <th scope="col">description</th>
+                                              <th scope="col">Category image</th>
                                             </tr>
                                           </thead>
                                           <tbody>
-                                              {% for order in orders %}
+                                              {% for object in categories %}
                                             <tr>
-                                              <th scope="row"><a href="{% url 'order_detail' order.order_number %}">{{order.order_number}}</a></th>
-                                              <td>{{order.full_name}}</td>
-                                              <td>{{order.phone}}</td>
-                                              <td>Ksh {{order.order_total}}</td>
-                                              <td><span class="badge badge-success badge-pill">{{order.payment.status}}</span></td>
-                                              <td>{{order.created_at}}</td>
+                                                <td>{{ forloop.counter }}</td>
+                                              <td>{{object.category_name}}</td>
+                                              <td>{{object.slug}}</td>
+                                              <td>{{object.description}}</td>
+                                            <!-- {% if object.cat_image %} -->
+                                            <td><img src="{{object.cat_image.url }}" alt="Category Image" width="100" style="border-radius:50px"></td>
+                                            <!-- {% else %} -->
+                                            <!-- <td><img src="#" alt="No image" width="100" style="border-radius:50px"></td> -->
+                                            <!-- {% endif %} -->
+                                              
                                             </tr>
                                             {% endfor %}
                                             
                                           </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Order  Number</th>
-                                                    <th>Billing Name</th>
-                                                    <th>Phone</th>
-                                                    <th>Order Total</th>
-                                                    <th>Payment Status</th>
-                                                    <th>Order date</th>
+                                                    <th >No</th>
+                                                    <th >Category Name</th>
+                                                    <th >slug</th>
+                                                    <th >description</th>
+                                                    <th >Category image</th>
                                                     
                                                 </tr>
                                             </tfoot>
@@ -73,7 +75,6 @@
             </section>
             </article> <!-- order-group.// --> 
         </main>
-        {% endif %}
     </div> <!-- row.// -->
     </div>
     

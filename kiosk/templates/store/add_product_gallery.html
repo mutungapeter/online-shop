@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+{% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+        {% include 'includes/dashboard_sidebar.html' %}
+        <main class="col-md-9">
+            <article class="card">
+      <div class="content-wrapper">
+          <div class="content-body">
+              <section class="row flexbox-container">
+                  <div class="col-md-12 d-flex justify-content-center">
+                      <div class="card bg-authentication rounded-0 mb-0 w-100">
+                          <div class="row m-0">
+                            
+                              <div class="col-md-12 p-0">
+                                  <div class="card rounded-0 mb-0 px-2">
+                                      <div class="card-header pb-1">
+                                          <div class="card-title">
+                                              <h4 class="mb-0">Add Product</h4>
+                                          </div>
+                                      </div>
+                                      <p class="px-2">.</p>
+                                      <div class="card-content">
+                                          <div class="card-body pt-1 ">
+                                            <form action="{% url 'add_product_gallery' %}" method="POST" enctype="multipart/form-data">
+                                              {% csrf_token %}     
+                                              <fieldset class="form-label-group">
+                                                <select name="product" class="form-control" required>
+                                                    <option value="" selected disabled>Choose a Product</option>
+                                                    {% for product in form.fields.product.queryset.all %}
+                                                        <option value="{{ product.pk }}">{{ product }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <label for="id_product">Product</label>
+                                            </fieldset>
+                                            
+                                                
+                                                <fieldset class="form-label-group mt-2">
+                                                    <input type="file" name="image" placeholder="Gallery Image" class="form-control" required>
+                                                    <label for="">Gallery image</label>
+                                                </fieldset>
+                                                  <div class="row pt-2">
+                                                      <div class="col-12 col-md-12 mb-1">
+                                                          <button type="submit" class="btn btn-primary btn-block ">Add Product Gallery</button>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                              {{ form.errors }}
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+
+          </div>
+      </div>
+            </article> 
+        </main>
+    </div>
+    </div>
+    
+    
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+    
+
+  
+{% endblock %}
