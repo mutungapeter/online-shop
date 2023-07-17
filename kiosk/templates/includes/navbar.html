@@ -102,7 +102,8 @@
                                 
                                 <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
                                         href="{% url 'my_orders' %}"><i class="feather icon-box"></i> Orders</a>
-                                        
+                                        <a class="dropdown-item"
+                                        href="#"><i class="feather icon-box"></i> Sell Your Second Hand Item To us!</a>
                                     <div class="dropdown-divider"></div><a class="dropdown-item"
                                         href="{% url 'login' %}"><i class="feather icon-power"></i> Login</a>
                                 </div>
@@ -123,9 +124,12 @@
                                     {% if user.is_authenticated and user.is_active and not user.is_admin and not user.is_superadmin %}
                                     href="{% url 'my_orders' %}"><i class="feather icon-box"></i> Orders</a>
                                     {% endif  %}
-                                    
+
                                     {% if user.is_authenticated and user.is_admin and user.is_superadmin %}
                                     <a class="dropdown-item"href="{% url 'orders_list' %}"><i class="feather icon-box"></i>All Orders</a>
+                                    {% endif  %}
+                                    {% if user.is_authenticated and user.is_admin and user.is_superadmin %}
+                                    <a class="dropdown-item"href="#"><i class="feather icon-box"></i>Buy Second Hand Products From Customers</a>
                                     {% endif  %}
                                         <a class="dropdown-item" href="{% url 'dashboard' %}"><i
                                             class="feather icon-box">
