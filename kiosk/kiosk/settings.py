@@ -28,13 +28,15 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
-# AUTH_USER_MODEL = 'accounts.Account'
+AUTH_USER_MODEL = 'accounts.Account'
+LOGIN_REDIRECT_URL = 'admin:index'
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'jazzmin',
+    'adminlte3',
+    'adminlte3_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +50,7 @@ INSTALLED_APPS = [
     'carts',
     'orders',
 
-    "admin_honeypot",
+    # "admin_honeypot",
 ]
 
 MIDDLEWARE = [
@@ -67,12 +69,12 @@ SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 
-ROOT_URLCONF = 'kiosk.urls'
+ROOT_URLCONF = 'kiosk.urls' 
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [os.path.join(BASE_DIR, "templates")],
+       
         'DIRS': [os.path.join(BASE_DIR, "templates")],
         # 'DIRS': ['templates'],
         'APP_DIRS': True,

@@ -19,8 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 urlpatterns = [
-     path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
-    path('securelogin/', admin.site.urls),
+    #  path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
+    # path('securelogin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('store/', include("store.urls")),
     path("cart/", include("carts.urls")),
@@ -32,6 +33,6 @@ urlpatterns = [
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-admin.site.site_header  =  "PIGA LUKU ONLINE STORE"  
-admin.site.site_title  =  "PIGA LUKU admin site"
-admin.site.index_title  =  "PIGA LUKU Admin"
+admin.site.site_header  =  "ONLINE FURNITURE SHOP"  
+admin.site.site_title  =  "ONLINE FURNITURE SHOP admin site"
+admin.site.index_title  =  "ONLINE FURNITURE SHOP"

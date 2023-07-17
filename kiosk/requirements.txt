@@ -4,7 +4,7 @@ charset-normalizer==3.1.0
 Django==3.1
 django-admin-honeypot==1.1.0
 django-admin-thumbnails==0.2.8
-django-jazzmin==2.0.0
+django-adminlte-3==0.1.6
 django-session-timeout==0.1.0
 django-widget-tweaks==1.4.12
 idna==3.4

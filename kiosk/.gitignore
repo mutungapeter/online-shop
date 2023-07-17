@@ -149,7 +149,9 @@ venv.bak/
 
 # mkdocs documentation
 /site
-
+/staticfiles
+staticfiles/
+staticfiles
 # mypy
 .mypy_cache/
 .dmypy.json
@@ -157,7 +159,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
+env/
+/env
+env
 # pytype static type analyzer
 .pytype/
 
