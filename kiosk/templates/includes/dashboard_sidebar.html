@@ -5,6 +5,7 @@
     <ul class="list-group list-group-flush">
         <a class="list-group-item {% if '/accounts/' == request.path  %}active{% endif %}" href="{% url 'dashboard' %}"> Dashboard </a>
         <a class="list-group-item {% if '/my_orders/' in request.path  %}active{% endif %}" href="{% url 'my_orders' %}"> My Orders </a>
+        <a class="list-group-item {% if '/sell_item/'  in request.path %}active{% endif %}" href="{% url 'sell_item' %}"> Sell Your secondHand Item to us!</a>
         <a class="list-group-item {% if '/edit_profile/' in request.path  %}active{% endif %}" href="{% url 'edit_profile' %}" href="{% url 'edit_profile' %}"> Edit Profile </a>
         <a class="list-group-item {% if '/change_password/' in request.path  %}active{% endif %}" href="{% url 'change_password' %}" href="{% url 'change_password' %}"> Change Password </a>
     </ul>
@@ -33,7 +34,7 @@
         <a class="list-group-item {% if '/orders_list/'  in request.path %}active{% endif %}" href="{% url 'orders_list' %}"> Orders</a>
         <a class="list-group-item {% if '/payments_list/'  in request.path %}active{% endif %}" href="{% url 'payments_list' %}"> Payments</a>
         <a class="list-group-item {% if '/products/'  in request.path %}active{% endif %}" href="{% url 'products' %}"> Products</a>
-        <a class="list-group-item {% if '//'  in request.path %}active{% endif %}" href="#"> Buy Second Hand Items</a>
+        <a class="list-group-item {% if '/sell_buy_items/'  in request.path %}active{% endif %}" href="{% url 'sell_buy_items' %}"> Buy Second Hand Items</a>
         <a class="list-group-item {% if '/product_gallery/'  in request.path %}active{% endif %}" href="{% url 'product_gallery' %}">Product Gallery</a>
         <a class="list-group-item {% if '/product_variation/'  in request.path %}active{% endif %}" href="{% url 'product_variation' %}">Variations</a>
        

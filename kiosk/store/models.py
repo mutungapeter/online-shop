@@ -104,10 +104,13 @@ class SellItem(models.Model):
     city = models.CharField(max_length=50)
     street = models.CharField(max_length=50)
     item_name = models.CharField(max_length=250)
-    item_image = models.ImageField(upload_to="photos/products")
-    price = models.IntegerField()
+    item_image = models.ImageField(upload_to="images/sell_buy_products")
+    price = models.FloatField()
     is_negotiable = models.BooleanField(default=False)
     
+    
+    def __str__(self):
+        return self.first_name
     
     
     

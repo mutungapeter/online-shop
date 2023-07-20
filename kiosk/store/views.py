@@ -7,11 +7,11 @@ from django.db.models import Q
 from carts.models import CartItem
 from carts.views import _cart_id
 from orders.models import OrderProduct
-from .models import ReviewRating, ProductGallery
-from .forms import ReviewForm, ProductForm, GalleryForm, VariationForm
+from .models import ReviewRating, ProductGallery, SellItem
+from .forms import ReviewForm, ProductForm, GalleryForm, VariationForm, SellItemForm
 # Create your views here.
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
-
+from django.contrib.auth.decorators import login_required
 
 def store(request, category_slug=None):
     categories = None
@@ -175,4 +175,30 @@ def product_variation(request):
     "product_variations": product_variations,
 }
     return render(request, "store/product_variations.html", context)
+
+@login_required(login_url="login")
+def sell_item(request):
+    if request.method == "POST":
+        form = SellItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            sell_item = form.save(commit=False)  
+            sell_item.user = request.user 
+            sell_item.save()
+            messages.success(request, "Item uploaded successfully.")
+            return redirect("dashboard")
+    else:
+        form = SellItemForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "store/sell_item.html", context)
+
+
+
+def sell_items(request):
+    sell_items_list = SellItem.objects.all()
+    context = {
+    "sell_items_list": sell_items_list,
+}
+    return render(request, "store/sell_items_list.html", context)
 

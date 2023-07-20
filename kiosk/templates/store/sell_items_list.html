@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+{% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+        {% include 'includes/dashboard_sidebar.html' %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">Items From Customers</strong>
+                
+
+            </header>
+              <!-- Zero configuration table -->
+              <section id="basic-datatable">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title"> Buy Second Hand Items From Customers</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body card-dashboard">
+                                    <p class="card-text"></p>
+                                    <div class="table-responsive">
+                                        <table class="table zero-configuration">
+                                          <thead>
+                                            <tr>
+                                            <th scope="col">No.</th>
+                                              <th scope="col">User</th>
+                                              <th scope="col">Phone</th>
+                                              <th scope="col">Email</th>
+                                              <th scope="col">Address Line 1</th>
+                                              <th scope="col">Address Line 2</th>
+                                              <th scope="col">City</th>
+                                              <th scope="col">Item Name</th>
+                                              <th scope="col">Price</th>
+                                              <th scope="col">Price Negotiable</th>
+                                              <th scope="col">Image</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {% for object in sell_items_list %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                              <td>{{object.user.full_name}}</td>
+                                              <td>{{object.phone}}</td>
+                                              <td>{{object.email}}</td>
+                                              <td>{{object.address_line_1}}</td>
+                                              <td>{{object.address_line_2}}</td>
+                                              <td>{{object.city}}</td>
+                                              <td>{{object.item_name}}</td>
+                                              <td>{{object.price}}</td>
+                                              <td>{{object.is_negotiable}}</td>
+                                              {% if object.item_image %}
+                                             <td> <img src="{{object.item_image.url }}" alt="Item Image" width="100" style="border-radius:50px"></td>
+                                              {% else %}
+                                             <td> <img src="#" alt="No Picture"></td>
+                                              {% endif %}
+                                              {% comment %} <td><img src="{{ object.item_image.url }}" alt="Item Image" width="100" style="border-radius:50px"></td> {% endcomment %}
+                                            </tr>
+                                            {% endfor %}
+                                            
+                                          </tbody>
+                                            {% comment %} <tfoot>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Product</th>
+                                                    <th>Product image</th>
+                                                    
+                                                </tr>
+                                            </tfoot> {% endcomment %}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </article> <!-- order-group.// --> 
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+  
+{% endblock %}

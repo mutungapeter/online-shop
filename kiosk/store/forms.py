@@ -1,5 +1,5 @@
 from django import forms
-from.models import ReviewRating, Product, ProductGallery, Variation
+from.models import ReviewRating, Product, ProductGallery, Variation, SellItem
 from category.models import Category
 
 class ReviewForm(forms.ModelForm):
@@ -54,3 +54,14 @@ class VariationForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] ="form-control" 
 
+class SellItemForm(forms.ModelForm):
+    item_image = forms.ImageField(required=False, error_messages= {"invalid": ("Image files only")}, widget=forms.FileInput(attrs={"multiple": True}))
+    is_negotiable = forms.BooleanField(required=False, initial=True, widget=forms.CheckboxInput())
+    class Meta:
+        model = SellItem
+        fields = ["first_name", "last_name", "phone", "email","address_line_1", "address_line_2", "city", "street", "item_name", "item_image", "price",   "is_negotiable"]
+        
+    def __init__(self, *args, **kwargs):
+        super(SellItemForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] ="form-control" 

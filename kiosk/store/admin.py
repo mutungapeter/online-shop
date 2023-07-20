@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, Variation, ReviewRating, ProductGallery
+from .models import Product, Variation, ReviewRating, ProductGallery, SellItem
 # Register your models here.
 import admin_thumbnails
 @admin_thumbnails.thumbnail('image')
@@ -22,3 +22,4 @@ class VariationAdmin(admin.ModelAdmin):
 admin.site.register(Variation, VariationAdmin)
 admin.site.register(ReviewRating)
 admin.site.register(ProductGallery)
+admin.site.register(SellItem)
