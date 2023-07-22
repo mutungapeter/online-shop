@@ -24,13 +24,13 @@
     {% endif %} -->
 
     {% if user.is_authenticated and user.is_superadmin %}
-
+    <div class="card">
     <ul class="list-group list-group-flush">
         <a class="list-group-item {% if '/accounts/' == request.path  %}active{% endif %}" href="{% url 'dashboard' %}"> Dashboard </a>
         {% comment %} <a class="list-group-item {% if '//' == request.path  %}active{% endif %}" href="#">Users</a> {% endcomment %}
         <a class="list-group-item {% if '/categories/'  in request.path %}active{% endif %}" href="{% url 'categories' %}"> Categories</a>
        
-        <a class="list-group-item {% if '/ordered_products/'  in request.path %}active{% endif %}" href="{% url 'ordered_products' %}"> Ordered Products</a>
+        <a class="list-group-item {% if '/ordered_products/'   in request.path %}active{% endif %}" href="{% url 'ordered_products' %}"> Ordered Products</a>
         <a class="list-group-item {% if '/orders_list/'  in request.path %}active{% endif %}" href="{% url 'orders_list' %}"> Orders</a>
         <a class="list-group-item {% if '/payments_list/'  in request.path %}active{% endif %}" href="{% url 'payments_list' %}"> Payments</a>
         <a class="list-group-item {% if '/products/'  in request.path %}active{% endif %}" href="{% url 'products' %}"> Products</a>
@@ -39,6 +39,7 @@
         <a class="list-group-item {% if '/product_variation/'  in request.path %}active{% endif %}" href="{% url 'product_variation' %}">Variations</a>
        
     </ul>
+</div>
     {% endif %}
     <br>
     <a class="btn btn-danger btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a> 

@@ -22,46 +22,44 @@
                                   <div class="card rounded-0 mb-0 px-2">
                                       <div class="card-header pb-1">
                                           <div class="card-title">
-                                              <h4 class="mb-0">Add Category</h4>
+                                              <h4 class="mb-0">Edit Category</h4>
                                           </div>
                                       </div>
                                       <p class="px-2">.</p>
                                       <div class="card-content">
                                           <div class="card-body pt-1 ">
-                                            <form action="{% url 'add_category' %}" method="POST" enctype="multipart/form-data">
+                                            <form action="{% url 'edit_category' category.id  %}" method="POST" enctype="multipart/form-data">
                                               {% csrf_token %}
-                                                  {% comment %} <fieldset class="form-label-group">
-                                                    <input type="text" name="category_name" placeholder="Category Name" class="form-control" required>
-                                                      <label for="current_password">Category Name </label>
+                                                  <fieldset class="form-label-group">
+                                                    {% comment %} <input type="text" name="category_name" placeholder="Category Name" class="form-control" required> {% endcomment %}
+                                                      <label for="category Name">Category Name </label>
+                                                      {{form.category_name}}
                                                   </fieldset>
-                                                   <fieldset class="form-label-group"> 
-                                                    <input type="text" name="slug" placeholder="Slug" class="form-control" required value="{{ form.initial.slug }}">
+                                                  <fieldset class="form-label-group">
+                                                    {% comment %} <input type="text" name="slug" placeholder="Slug" class="form-control" required value="{{ form.initial.slug }}"> {% endcomment %}
                                                     <label for="slug">Slug</label>
-                                                </fieldset>   {% endcomment %}                                             
-                                                <fieldset class="form-label-group">
-                                                    <input type="text" name="category_name" id="id_category_name" placeholder="Category Name" class="form-control" required>
-                                                    <label for="id_category_name">Category Name</label>
+                                                    {{form.slug}}
                                                 </fieldset>
-                                                <fieldset class="form-label-group">
-                                                    <input type="text" name="slug" id="id_slug" placeholder="Slug" class="form-control" required>
-                                                    <label for="id_slug">Slug</label>
-                                                </fieldset>
-                                                <fieldset class="form-label-group">
-                                                    <input type="text" name="description" placeholder="Description" class="form-control" required>
+                                                  <fieldset class="form-label-group">
+                                                    {% comment %} <input type="text" name="description" placeholder="Description" class="form-control" required> {% endcomment %}
                                                     <label for="">Description</label>
+                                                    {{form.description}}
                                                   </fieldset>
 
                                                   <fieldset class="form-label-group">
-                                                    <input type="file" name="cat_image" placeholder="Category Image" class="form-control" required>
+                                                    {% comment %} <input type="file" name="cat_image" placeholder="Category Image" class="form-control" required> {% endcomment %}
                                                     <label for="">category image</label>
+                                                    {{form.cat_image}}
                                                   </fieldset>
                                                   <div class="row pt-2">
                                                       <div class="col-12 col-md-12 mb-1">
-                                                          <button type="submit" class="btn btn-primary btn-block ">Add Category</button>
+                                                          <button type="submit" class="btn btn-primary btn-block ">Edit Category</button>
                                                       </div>
                                                   </div>
-                                              </form>
+                                             
                                               {{ form.errors }}
+                                              {{ form.errors }}
+                                            </form>
                                           </div>
                                       </div>
                                   </div>
@@ -99,7 +97,6 @@
                 const categoryNameField = document.getElementById('id_category_name');
                 categoryNameField.addEventListener('input', updateSlug);
             </script>
-            
         </main>
     </div>
     </div>

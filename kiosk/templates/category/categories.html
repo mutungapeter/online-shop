@@ -14,7 +14,12 @@
             <header class="card-header">
                 <strong class="d-inline-block mr-3">Categories</strong>
                 <a href="{% url 'add_category' %}" class="btn btn-primary   text-center float-right btn-inline">Add Category</a>
-
+<style>
+    .actions-container {
+        display: flex;
+        justify-content: space-between;
+      }
+</style>
             </header>
               <!-- Zero configuration table -->
               <section id="basic-datatable">
@@ -36,6 +41,7 @@
                                               <th scope="col">slug</th>
                                               <th scope="col">description</th>
                                               <th scope="col">Category image</th>
+                                              <th scope="col">Actions</th>
                                             </tr>
                                           </thead>
                                           <tbody>
@@ -47,6 +53,16 @@
                                               <td>{{object.description}}</td>
                                             <!-- {% if object.cat_image %} -->
                                             <td><img src="{{object.cat_image.url }}" alt="Category Image" width="100" style="border-radius:50px"></td>
+                                            <td>
+                                                <div class="actions-container">
+                                                    <span class="action-item">
+                                                        <a href="{% url 'delete_category' object.id %}" class="text-danger"><i class="ficon feather icon-trash-2"></i> Delete</a>
+                                                      </span>
+                                                      <span class="action-item">
+                                                        <a href="{% url 'edit_category' object.id %}" class="text-primary"><i class="ficon feather icon-edit"></i> Edit</a>
+                                                      </span>
+                                                </div>
+                                              </td>
                                             <!-- {% else %} -->
                                             <!-- <td><img src="#" alt="No image" width="100" style="border-radius:50px"></td> -->
                                             <!-- {% endif %} -->
@@ -62,6 +78,7 @@
                                                     <th >slug</th>
                                                     <th >description</th>
                                                     <th >Category image</th>
+                                                    <th>Actions</th>
                                                     
                                                 </tr>
                                             </tfoot>

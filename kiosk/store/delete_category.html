@@ -1,0 +1,8 @@
+<!-- delete_category.html -->
+
+<p>Are you sure you want to delete the category "{{ category.category_name }}"?</p>
+<form action="{% url 'delete_category' category.pk %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirm Delete" class="btn btn-danger">
+    <a href="{% url 'categories' %}" class="btn btn-secondary">Cancel</a>
+</form>

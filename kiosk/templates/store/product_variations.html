@@ -35,6 +35,7 @@
                                               <th scope="col">Product Name</th>
                                               <th scope="col">Variation Category</th>
                                               <th scope="col">Variation Value</th>
+                                              <th scope="col">Actions</th>
                                             </tr>
                                           </thead>
                                           <tbody>
@@ -44,7 +45,16 @@
                                               <td>{{object.product}}</td>
                                               <td>{{object.variation_category}}</td>
                                               <td>{{object.variation_value}}</td>
-                                              
+                                              <td>
+                                                <div class="actions-container">
+                                                    <span class="action-item">
+                                                        <a href="#" class="text-danger"><i class="ficon feather icon-trash-2"></i> Delete</a>
+                                                      </span>
+                                                      <span class="action-item">
+                                                        <a href="#" class="text-primary"><i class="ficon feather icon-edit"></i> Edit</a>
+                                                      </span>
+                                                </div>
+                                              </td>
                                             </tr>
                                             {% endfor %}
                                             
@@ -55,6 +65,7 @@
                                                     <th>Product Name</th>
                                                     <th>Price</th>
                                                     <th>Product image</th>
+                                                   <th>Actions</th>
                                                     
                                                 </tr>
                                             </tfoot>

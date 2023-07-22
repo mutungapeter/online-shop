@@ -202,3 +202,42 @@ def sell_items(request):
 }
     return render(request, "store/sell_items_list.html", context)
 
+
+
+@login_required(login_url='login')
+def Edit_product(request, pk):
+    product = None 
+    try:
+       product = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        messages.error(request, "Category not found.")
+        return redirect("categorie")
+        pass
+
+    if request.method == "POST":
+        product_form = ProductForm(request.POST, request.FILES, instance=product)
+        if product_form.is_valid():
+            product_form.save()
+            messages.success(request, "Your Category has been updated.")
+            return redirect("categories")
+    else:
+        form = ProductForm(instance=product)
+        
+    context = {
+        "form": form,
+        "product": product,
+    }
+    return render(request, 'store/edit_product.html', context)
+
+def delete_product(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    if request.method == "POST":
+        product.delete()
+        messages.success(request, "Product deleted successfully.")
+        return redirect("products")
+
+    context = {
+        "product": product,
+    }
+    return render(request, "store/delete_product.html", context)

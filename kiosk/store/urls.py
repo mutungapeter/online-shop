@@ -20,4 +20,10 @@ urlpatterns = [
     
      path("sell_item/", views.sell_item, name="sell_item"),
     path("sell_buy_items/", views.sell_items, name="sell_buy_items"),
+    
+    
+    
+    
+    path('edit_product/<int:pk>/', views.Edit_product, name='edit_product'),
+    path('delete_product/<int:pk>/', views.delete_product, name='delete_product'),
 ]
