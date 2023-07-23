@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% include 'includes/navbar.html' %}
 <section class="section-pagetop bg">
     <div class="container">
         {% if 'search in request.path' %}
@@ -122,3 +123,4 @@
     <!-- ========================= SECTION CONTENT END// ========================= -->
     
 {% endblock %}
+{% include 'includes/footer.html' %}
