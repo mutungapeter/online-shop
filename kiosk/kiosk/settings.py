@@ -64,7 +64,7 @@ MIDDLEWARE = [
 
 SESSION_EXPIRE_SECONDS = 3600 #logout after one hour of inactivity
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-SESSION_TIMEOUT_REDIRECT = 'accounts/login'
+SESSION_TIMEOUT_REDIRECT = '/'
 
 
 ROOT_URLCONF = 'kiosk.urls' 

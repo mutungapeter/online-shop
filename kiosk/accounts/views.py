@@ -17,6 +17,11 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 
+from django.template.loader import get_template
+from reportlab.pdfgen import canvas
+from xhtml2pdf import pisa
+
+from io import BytesIO
 import requests
 # Create your views here.
 
@@ -289,4 +294,6 @@ def order_detail(request, order_id):
         "order": order,
         "subtotal": subtotal,
     }
+       
+    # If not a PDF export, render the regular HTML template
     return render(request, "accounts/order_detail.html", context)

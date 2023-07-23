@@ -36,6 +36,7 @@
                                               <th scope="col">Phone</th>
                                               <th scope="col">Order Total</th>
                                               <th scope="col">Payment Status</th>
+                                              <!-- <th scope="col">Export</th> -->
                                               <th scope="col">Date</th>
                                             </tr>
                                           </thead>
@@ -47,6 +48,7 @@
                                               <td>{{order.phone}}</td>
                                               <td>Ksh {{order.order_total}}</td>
                                               <td><span class="badge badge-success badge-pill">{{order.payment.status}}</span></td>
+                                              <!-- <td><a href="#" class="btn btn-sm btn-primary">Export PDF</a></td> -->
                                               <td>{{order.created_at}}</td>
                                             </tr>
                                             {% endfor %}
