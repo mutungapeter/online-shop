@@ -19,9 +19,9 @@ from django.core.mail import EmailMessage
 
 from django.template.loader import get_template
 from reportlab.pdfgen import canvas
-from xhtml2pdf import pisa
 
 from io import BytesIO
+
 import requests
 # Create your views here.
 
@@ -295,5 +295,9 @@ def order_detail(request, order_id):
         "subtotal": subtotal,
     }
        
-    # If not a PDF export, render the regular HTML template
+   
     return render(request, "accounts/order_detail.html", context)
+
+
+
+

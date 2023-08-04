@@ -5,8 +5,15 @@
             <div class="navbar-header d-xl-block d-none">
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item"><a class="navbar-brand" href="{% url 'home' %}">
-                            <div class="brand-logo mt-1" style="margin-left: 50px;">Furniture shop</div>
+                            <div class="brand-logo mt-1 text-danger" style="margin-left: 50px;">Online Furniture Shop</div>
                         </a></li>
+                        <!-- <div style="">
+                            <div class="img">
+                                <a href="{% url 'home' %}">
+                                    <img src="{% static 'images/kejani2.png' %}" alt="logo" style="width:200px; height: 200px;">
+                                </a>
+                            </div>
+                        </div>-->
                 </ul>
             </div>
             <div class="navbar-wrapper">
@@ -52,7 +59,26 @@
                                     </div>
                                 </li>
                             </ul>
-
+                            <ul class="nav navbar-nav">
+                                {% if user.is_authenticated %}
+                                    <!-- Show the button only for authenticated non-admin and non-superadmin users -->
+                                    {% if user.is_active and not user.is_admin and not user.is_superadmin %}
+                                    <li class="nav-item mt-1 ml-3">
+                                        <div class="col-lg col-md-6 col-sm-12 col">
+                                            <a href="{% url 'sell_item'%}" class="btn btn-primary float-right">Sell Your Furniture to us!!</a>
+                                        </div>
+                                    </li>
+                                    {% endif %}
+                                {% else %}
+                                    <!-- Show the button for non-authenticated users -->
+                                    <li class="nav-item mt-1 ml-3">
+                                        <div class="col-lg col-md-6 col-sm-12 col">
+                                            <a href="{% url 'sell_item'%}" class="btn btn-primary float-right">Sell Your Furniture to us!!</a>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            
                         </div>
                         <style>
                             .user-icon {

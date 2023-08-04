@@ -33,13 +33,11 @@
                                             <th scope="col">Order Number</th>
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Phone</th>
-                                            {% comment %} <th scope="col">Email</th> {% endcomment %}
-                                            {% comment %} <th scope="col">City</th> {% endcomment %}
                                             <th scope="col">Order Total</th>
-                                            <th scope="col">Shipping Fee</th>
-                                            {% comment %} <th scope="col">Order Status</th> {% endcomment %}
+                                            <!-- <th scope="col">Shipping Fee</th> -->
                                             <th scope="col">Payment</th>
-                                            <th scope="col">Is Ordered</th>
+                                            <th scope="col">Order Status</th>
+                                            <!-- <th scope="col">Is Ordered</th> -->
                                             <th scope="col">Order date</th>
                                             
                                             </tr>
@@ -49,18 +47,25 @@
 
                                             <tr>
                                                 <td>{{ forloop.counter }}</td>
-                                                <td>{{ object.order_number}}</td>
+                                                <th scope="row"><a href="{% url 'order_details' object.order_number %}">{{object.order_number}}</a></th>
                                                 <td>{{object.user.full_name}}</td>
                                                 <td>{{object.phone}}</td>
-                                                {% comment %} <td>{{object.email}}</td> {% endcomment %}
-                                                {% comment %} <td>{{object.city}}</td> {% endcomment %}
                                                 <td>Ksh {{object.order_total}}</td>
-                                                <td>Ksh {{object.tax}}</td>
-                                                {% comment %} <td>{{object.status}}</td> {% endcomment %}
+                                                <!-- <td>Ksh {{object.tax}}</td> -->
                                                 <td><span class="badge badge-success badge-pill">{{object.payment.status}}</span></td>
-                                                <td>{{object.is_ordered}}</td>
+                                                
+                                                    {% if object.status == "Received" %}
+                                                    <td> <span class="badge badge-primary badge-pill">{{ object.status }}</span></td>
+                                                    {% elif object.status == "Completed" %}
+                                                    <td>  <span class="badge badge-success badge-pill">{{ object.status }}</span></td>
+                                                    {% elif object.status == "Dispatched" %}
+                                                    <td>  <span class="badge badge-warning badge-pill">{{ object.status }}</span></td>
+                                                    {% else %}
+                                                    <td>  <span class="badge badge-secondary badge-pill">{{ object.status }}</span></td>
+                                                    {% endif %}
+                                               
+                                                <!-- <td>{{object.is_ordered}}</td> -->
                                                 <td>{{object.created_at}}</td>
-                                                {% comment %} <td><span class="badge badge-success badge-pill">{{object.order.payment.status}}</span></td> {% endcomment %}
                                               </tr>
                                             {% endfor %}
                                             
@@ -71,13 +76,10 @@
                                                     <th >Order Number</th>
                                                     <th >Full Name</th>
                                                     <th >Phone</th>
-                                                    {% comment %} <th >Email</th> {% endcomment %}
-                                                    {% comment %} <th >City</th> {% endcomment %}
                                                     <th >Order Total</th>
-                                                    <th >Shipping Fee</th>
-                                                    {% comment %} <th >Status</th> {% endcomment %}
+                                                    <!-- <th >Shipping Fee</th> -->
                                                     <th >Payment</th>
-                                                    <th >Is Ordered</th>
+                                                    <!-- <th >Is Ordered</th> -->
                                                     <th >Order date</th>
                                                     
                                                     

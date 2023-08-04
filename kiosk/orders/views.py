@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from carts.models import CartItem
 from .models import Order , Payment, OrderProduct
@@ -6,6 +6,7 @@ import datetime
 from .forms import OrderForm
 import json
 
+from django.contrib.auth.decorators import login_required   
 from store.models import Product
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string 
@@ -62,7 +63,7 @@ def payments(request):
    CartItem.objects.filter(user=request.user).delete()
    
    #Send order received email to customer
-   mail_subject = "Thank you for shopping and PIGA LUKU online shop"
+   mail_subject = "Thank you for shopping at Online Furniture Shop .Your house decorating shop."
    message = render_to_string("orders/order_received.html", {
                 'user': request.user,
                 'order': order,
@@ -151,8 +152,8 @@ def place_order(request, total=0, quantity = 0):
 def order_complete(request):
     order_number = request.GET.get('order_number')
     transID = request.GET.get('payment_id')
-    print("order_number->", order_number)
-    print("transID ->", transID)
+   #  print("order_number->", order_number)
+   #  print("transID ->", transID)
     try:
         order = Order.objects.get(order_number=order_number, is_ordered=True)
         ordered_products = OrderProduct.objects.filter(order_id=order.id)
@@ -204,4 +205,37 @@ def all_payments(request):
 
 
    return render(request, "orders/all_payments.html ", context)
+
+
+@login_required(login_url='login')
+def order_details(request, order_id):
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(order_number=order_id)
+    subtotal = 0
+    for i in order_detail:
+        subtotal += i.product_price * i.quantity
+    
+    if order.status not in ['Completed', 'Cancelled']:
+        order.status = 'Received'
+        order.save()
+    can_mark_completed = order.status not in ['Completed', 'Cancelled']
+    can_mark_dispatched = order.status not in  ['Completed', 'Cancelled', 'Pending']
+
+    if request.method == 'POST':
+         if 'mark_completed' in request.POST and can_mark_completed:
+            order.mark_completed()
+         elif 'mark_dispatched' in request.POST and can_mark_dispatched:
+            order.mark_dispatched()
+         return redirect('orders_list')
+                       
+    context = {
+        "order_detail": order_detail,
+        "order": order,
+        "subtotal": subtotal,
+         "can_mark_completed": can_mark_completed,
+         "can_mark_dispatched": can_mark_dispatched,
+    }
+       
+   
+    return render(request, "orders/order_details.html", context)
 

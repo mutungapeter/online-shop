@@ -15,7 +15,10 @@
             <strong class="d-inline-block mr-3">Products</strong>
             <a href="{% url 'add_product' %}" class="btn btn-primary   text-center float-right btn-inline">Add
               Product</a>
-
+              <!-- <button type="button" class="btn btn-primary text-center float-right btn-inline" data-toggle="modal" data-target="#addProductModal">
+                Add Product
+              </button> -->
+              
           </header>
           <!-- Zero configuration table -->
           <section id="basic-datatable">
@@ -120,6 +123,77 @@
             </div>
           </section>
         </article> <!-- order-group.// -->
+        <!-- Add Product Modal -->
+<div class="modal fade text-left" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary white">
+        <h5 class="modal-title" id="myModalLabel120">Add Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body pt-1">
+          <form action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-label-group">
+              <input type="text" name="product_name" placeholder="Product Name" class="form-control" required>
+              <label for="product_name">Product Name</label>
+            </fieldset>
+            <fieldset class="form-label-group">
+              <input type="text" name="slug" placeholder="Slug" class="form-control" required>
+              <label for="slug">Slug</label>
+            </fieldset>
+            <fieldset class="form-label-group">
+              <input type="text" name="description" placeholder="Description" class="form-control" required>
+              <label for="description">Description</label>
+            </fieldset>
+            <fieldset class="form-label-group">
+              <input type="text" name="price" placeholder="Price" class="form-control" required>
+              <label for="price">Price</label>
+            </fieldset>
+            <fieldset class="form-label-group">
+              <input type="number" name="stock" placeholder="Stock" class="form-control" required>
+              <label for="stock">Stock</label>
+            </fieldset>
+            <fieldset class="form-label-group">
+              <select name="category" class="form-control" required>
+                <option value="" selected disabled>Choose a category</option>
+                {% for category in form.fields.category.choices %}
+                <option value="{{ category.0 }}">{{ category.1 }}</option>
+                {% endfor %}
+              </select>
+              <label for="category">Category</label>
+            </fieldset>
+            <div class="form-group">
+              <div class="form-check">
+                <input type="checkbox" name="is_available" class="form-check-input" id="id_is_available" checked>
+                <label class="form-check-label text-dark" for="id_is_available">Is Available</label>
+              </div>
+            </div>
+            <fieldset class="form-label-group mt-2">
+              <input type="file" name="images" placeholder="Product Image" class="form-control" required>
+              <label for="images">Product Image</label>
+            </fieldset>
+            <fieldset class="form-label-group">
+              <input type="file" name="gallery_images" class="form-control" multiple required>
+              <label for="gallery_images">Gallery Images</label>
+            </fieldset>
+            <div class="row pt-2">
+              <div class="col-12 col-md-12 mb-1">
+                <button type="submit" class="btn btn-primary btn-block">Add Product</button>
+              </div>
+            </div>
+          </form>
+          <!-- You can include any form errors here if you want -->
+          {{ form.errors }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
       </main>
     </div> <!-- row.// -->
   </div>

@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <!-- ========================= SECTION CONTENT ========================= -->
 
           <div class="content-wrapper">
               <div class="content-body body mt-5">
+                <!-- <div style="display: flex; align-items: center; justify-content: center;">
+                    <div class="img">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'images/kejani2.png' %}" alt="logo" style="width: 200px; height: 200px;">
+                        </a>
+                    </div>
+                </div>
+                 -->
                   <section class="row flexbox-container row">
                       <div class="col-xl-12 col-11 d-flex justify-content-center" >
+                          
                           <div class="card bg-authentication rounded-0 mb-5" >
                               <div class="col-lg-12 col-12 p-0">
-                                   <!-- <div class="img">
-                                    <img src=""
-                                    style="width: 400; width: 400px;
-                                          height: 315px;
-                                      " alt="logo">
-                                   </div>   -->
+                                  
                                    
                                    {% if request.GET.command == 'verification' %}
                                    <div class="container max-auto alert alert-blue text-center" role="alert" style="max-width: 1000px; margin-top:100px;">
@@ -38,20 +42,21 @@
                                                         {% include 'includes/alerts.html' %}
                                                           <form  action="{% url 'login' %}" method="POST">
                                                             {% csrf_token %}
+                                                            <label for="email">Email</label>
                                                               <fieldset
                                                                   class="form-label-group form-group position-relative mt-2 mb-1">
                                                                   <input type="text" class="form-control" name="email"
                                                                       id="" placeholder="email" required>
   
-                                                                  <label for="email">Email</label>
+                                                                  
                                                               </fieldset>
-  
+                                                              <label for="user-password">Password</label>
                                                               <fieldset class="form-label-group position-relative mt-4">
                                                                   <input type="password" class="form-control"
                                                                       name="password" id=""
                                                                       placeholder="Password" required>
   
-                                                                  <label for="user-password">Password</label>
+                                                                  
                                                               </fieldset>
                                                               <div
                                                                   class="form-group d-flex justify-content-between align-items-center">

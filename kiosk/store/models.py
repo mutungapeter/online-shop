@@ -92,7 +92,10 @@ class ProductGallery(models.Model):
 
 
 
-
+nego_choices =(
+    ("Yes", "Yes"),
+    ("No", "Yes"),
+)
 class SellItem(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)

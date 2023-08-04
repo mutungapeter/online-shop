@@ -16,8 +16,8 @@ class Payment(models.Model):
 
 class Order(models.Model):
     STATUS = (
-        ("New", "New"),
-        ("Accepted", "Accepted"),
+        ("Received", "Received"),
+        ("Dispatched", "Dispatched"),
         ("Completed", "Completed"),
         ("Cancelled", "Cancelled"),
     )
@@ -36,7 +36,7 @@ class Order(models.Model):
     order_note = models.CharField(max_length=100, blank=True)
     order_total = models.FloatField()
     tax = models.FloatField()
-    status = models.CharField(max_length=10, choices=STATUS, default='New')
+    status = models.CharField(max_length=10, choices=STATUS, default='Pending')
     ip = models.CharField(blank=True, max_length=20)
     is_ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -51,6 +51,15 @@ class Order(models.Model):
     def __str__(self):
         return self.first_name
     
+    def mark_completed(self):
+        if self.status == 'Dispatched':
+            self.status = 'Completed'
+            self.save()
+       
+    def mark_dispatched(self):
+        self.status = 'Dispatched'
+        self.save()
+            
 class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete = models.CASCADE)
     payment = models.ForeignKey(Payment, on_delete=models.CASCADE)

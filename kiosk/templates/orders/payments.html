@@ -120,6 +120,21 @@
 
     <!-- ============================ COMPONENT 1 END .// ================================= -->
   </div>
+<!-- Modal Spinner -->
+<div class="modal fade" id="paymentSpinnerModal" tabindex="-1" role="dialog" aria-labelledby="paymentSpinnerModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="spinner-border text-success" role="status">
+                    <span class="sr-only">Processing...</span>
+                </div>
+                <p class="mt-2">Please wait as the payment is being processed...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
   <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
@@ -167,6 +182,8 @@ var redirectUrl = "{% url 'order_complete' %}"
 
 		// Finalize the transaction
 		onApprove: function(data, actions) {
+      //document.getElementById("spinner-container").style.display = "block";
+      $('#paymentSpinnerModal').modal('show');
 			return actions.order.capture().then(function(details) {
                 console.log("details:", details)
 				sendData();
@@ -187,6 +204,8 @@ var redirectUrl = "{% url 'order_complete' %}"
                     })
                     .then((response) => response.json())
                     .then((data) => {
+                      $('#paymentSpinnerModal').modal('hide');
+                      //document.getElementById("spinner-container").style.display = "none";
                       window.location.href = redirectUrl + '?order_number=' + data["order_number"] + '&payment_id=' + data["transID"];
                     });
                 }

@@ -36,7 +36,8 @@
                                               <th scope="col">Phone</th>
                                               <th scope="col">Order Total</th>
                                               <th scope="col">Payment Status</th>
-                                              <!-- <th scope="col">Export</th> -->
+                                              <th scope="col">Order Status</th>
+                                              <th scope="col">Export To PDF</th>
                                               <th scope="col">Date</th>
                                             </tr>
                                           </thead>
@@ -48,7 +49,16 @@
                                               <td>{{order.phone}}</td>
                                               <td>Ksh {{order.order_total}}</td>
                                               <td><span class="badge badge-success badge-pill">{{order.payment.status}}</span></td>
-                                              <!-- <td><a href="#" class="btn btn-sm btn-primary">Export PDF</a></td> -->
+                                              {% if order.status == "Received" %}
+                                              <td> <span class="badge badge-primary badge-pill">{{ order.status }}</span></td>
+                                              {% elif order.status == "Completed" %}
+                                              <td>  <span class="badge badge-success badge-pill">{{ order.status }}</span></td>
+                                              {% elif order.status == "Dispatched" %}
+                                              <td>  <span class="badge badge-warning badge-pill">{{ order.status }}</span></td>
+                                              {% else %}
+                                              <td>  <span class="badge badge-secondary badge-pill">{{ order.status }}</span></td>
+                                              {% endif %}
+                                              <td><a href="#" class="btn btn-sm btn-primary">Download as PDF</a></td>
                                               <td>{{order.created_at}}</td>
                                             </tr>
                                             {% endfor %}
