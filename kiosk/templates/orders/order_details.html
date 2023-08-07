@@ -136,16 +136,15 @@
                                             {% for item in order_detail %}
                                             <tr>
                                                 <td>{{item.product.product_name}}
-                                                    <p class="text-muted small ">
+                                                    <p class="text-danger small ">
                                                         {% if item.variation.all %}
                                                         {% for i in item.variation.all %}
-                                                        {{ i.variation_category | capfirst }} : {{ i.variation_value |
-                                                        capfirst }} <br>
+                                                        {{ i.variation_category | capfirst }} : {{ i.variation_value | capfirst }} <br>
                                                         {% endfor %}
                                                         {% endif %}
                                                     </p>
                                                 </td>
-
+                                               
                                                 <td class="text-center ">{{item.quantity}}</td>
                                                 <td class="text-center ">Ksh {{item.product_price}}</td>
                                             </tr>
