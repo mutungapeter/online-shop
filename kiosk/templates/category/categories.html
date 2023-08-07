@@ -63,16 +63,9 @@
                               {% endif %}
                               <td>
                                 <div class="actions-container">
-                                  <!-- <span class="action-item">
-                                                        <a href="{% url 'delete_category' object.id %}" class="text-danger"><i class="ficon feather icon-trash-2"></i> Delete</a>
-                                                      </span> -->
                                   <span class="action-item">
-                                    <!-- Add a data-toggle and data-target attribute to the delete button -->
-                                    <button type="button" class="btn btn-sm btn-pill btn-danger" data-toggle="modal"
-                                      data-target="#danger-{{ object.id }}">
-                                      <i class="ficon feather icon-trash-2"></i> Delete
-                                    </button>
-                                  </span>
+                                    <a href="{% url 'delete_category' object.pk %}" class="text-danger" data-toggle="modal"  data-target="#danger-{{ object.id }}"><i class="ficon feather icon-trash-2"></i> Delete</a>
+                                  </span> 
                                   <span class="action-item">
                                     <a href="{% url 'edit_category' object.id %}" class="text-primary"><i
                                         class="ficon feather icon-edit"></i> Edit</a>

@@ -65,3 +65,14 @@ class SellItemForm(forms.ModelForm):
         super(SellItemForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] ="form-control" 
+
+
+class EditGalleryForm(forms.ModelForm):
+    class Meta:
+        model = ProductGallery
+        fields = ["product", "image"]
+        
+    def __init__(self, *args, **kwargs):
+        super(EditGalleryForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] ="form-control" 

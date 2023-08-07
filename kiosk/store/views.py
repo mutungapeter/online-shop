@@ -8,7 +8,7 @@ from carts.models import CartItem
 from carts.views import _cart_id
 from orders.models import OrderProduct
 from .models import ReviewRating, ProductGallery, SellItem
-from .forms import ReviewForm, ProductForm, GalleryForm, VariationForm, SellItemForm
+from .forms import ReviewForm, ProductForm, GalleryForm, VariationForm, SellItemForm, EditGalleryForm
 # Create your views here.
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 from django.contrib.auth.decorators import login_required
@@ -219,7 +219,7 @@ def Edit_product(request, pk):
         if product_form.is_valid():
             product_form.save()
             messages.success(request, "Your Category has been updated.")
-            return redirect("categories")
+            return redirect("products")
     else:
         form = ProductForm(instance=product)
         
@@ -241,3 +241,80 @@ def delete_product(request, pk):
         "product": product,
     }
     return render(request, "store/delete_product.html", context)
+
+
+@login_required(login_url='login')
+def Edit_product_gallery(request, pk):
+    product_gallery = None 
+    try:
+       product_gallery = ProductGallery.objects.get(pk=pk)
+    except ProductGallery.DoesNotExist:
+        messages.error(request, "Product gallery  not found.")
+        return redirect("product_gallery")
+        pass
+
+    if request.method == "POST":
+        gallery_form = EditGalleryForm(request.POST, request.FILES, instance=product_gallery)
+        if gallery_form.is_valid():
+            gallery_form.save()
+            messages.success(request, "Your Product gallery has been updated.")
+            return redirect("product_gallery")
+    else:
+        form = EditGalleryForm(instance=product_gallery)
+        
+    context = {
+        "form": form,
+        "product_gallery": product_gallery,
+    }
+    return render(request, 'store/edit_product_gallery.html', context)
+
+def delete_product_gallery(request, pk):
+    product_gallery = get_object_or_404(ProductGallery, pk=pk)
+
+    if request.method == "POST":
+        product_gallery.delete()
+        messages.success(request, "product gallery deleted successfully.")
+        return redirect("product_gallery")
+
+    context = {
+        "product_gallery": product_gallery,
+    }
+    return render(request, "store/delete_product_gallery.html", context)
+
+@login_required(login_url='login')
+def Edit_product_variation(request, pk):
+    variation = None 
+    try:
+       variation = Variation.objects.get(pk=pk)
+    except Variation.DoesNotExist:
+        messages.error(request, "Product variation  not found.")
+        return redirect("product_variation")
+        pass
+
+    if request.method == "POST":
+        variation_form = VariationForm(request.POST, request.FILES, instance=variation)
+        if variation_form.is_valid():
+            variation_form.save()
+            messages.success(request, "Your Product variation has been updated.")
+            return redirect("product_variation")
+    else:
+        form = VariationForm(instance=variation)
+        
+    context = {
+        "form": form,
+        "variation": variation,
+    }
+    return render(request, 'store/edit_product_variation.html', context)
+
+def delete_product_variation(request, pk):
+    variation = get_object_or_404(Variation, pk=pk)
+
+    if request.method == "POST":
+        variation.delete()
+        messages.success(request, "product Variation deleted successfully.")
+        return redirect("product_variation")
+
+    context = {
+        "variation": variation,
+    }
+    return render(request, "store/delete_product_variation.html", context)

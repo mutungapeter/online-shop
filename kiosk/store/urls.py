@@ -26,4 +26,9 @@ urlpatterns = [
     
     path('edit_product/<int:pk>/', views.Edit_product, name='edit_product'),
     path('delete_product/<int:pk>/', views.delete_product, name='delete_product'),
+    
+    path('edit_product_gallery/<int:pk>/', views.Edit_product_gallery, name='edit_product_gallery'),
+    path('delete_product_gallery/<int:pk>/', views.delete_product_gallery, name='delete_product_gallery'),
+    path('edit_product_variation/<int:pk>/', views.Edit_product_variation, name='edit_product_variation'),
+    path('delete_product_variation/<int:pk>/', views.delete_product_variation, name='delete_product_variation'),
 ]
