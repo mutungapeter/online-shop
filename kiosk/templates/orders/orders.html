@@ -34,11 +34,10 @@
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Phone</th>
                                             <th scope="col">Order Total</th>
-                                            <!-- <th scope="col">Shipping Fee</th> -->
                                             <th scope="col">Payment</th>
                                             <th scope="col">Order Status</th>
-                                            <!-- <th scope="col">Is Ordered</th> -->
-                                            <th scope="col">Order date</th>
+                                            <!-- <th scope="col">Order date</th> -->
+                                            <th scope="col">Actions</th>
                                             
                                             </tr>
                                           </thead>
@@ -51,9 +50,8 @@
                                                 <td>{{object.user.full_name}}</td>
                                                 <td>{{object.phone}}</td>
                                                 <td>Ksh {{object.order_total}}</td>
-                                                <!-- <td>Ksh {{object.tax}}</td> -->
                                                 <td><span class="badge badge-success badge-pill">{{object.payment.status}}</span></td>
-                                                
+            
                                                     {% if object.status == "Received" %}
                                                     <td> <span class="badge badge-primary badge-pill">{{ object.status }}</span></td>
                                                     {% elif object.status == "Completed" %}
@@ -63,12 +61,39 @@
                                                     {% else %}
                                                     <td>  <span class="badge badge-secondary badge-pill">{{ object.status }}</span></td>
                                                     {% endif %}
+
+                                                <!-- <td>{{object.created_at}}</td> -->
                                                
-                                                <!-- <td>{{object.is_ordered}}</td> -->
-                                                <td>{{object.created_at}}</td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a class="dropdown-toggle" href="#" role="button" id="actionsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <span class="caret">Actions</span>
+                                                            </a>
+                                                            <div class="dropdown-menu" aria-labelledby="actionsDropdown">
+                                                                {% if object.status == 'Completed' %}
+                                                                <p class="text-danger p-1">Order Completed. <br>No action can be done on this order</p>
+                                                                {% elif object.status == 'Received' or object.status == 'Pending' %}
+                                                                <form method="post" action="{% url 'order_details' object.order_number %}">
+                                                                    {% csrf_token %}
+                                                                    <button type="submit" name="action" value="mark_dispatched" class="dropdown-item">Dispatch Order</button>
+                                                                </form>
+                                                                {% elif object.status == 'Dispatched' %}
+                                                                <form method="post" action="{% url 'order_details' object.order_number %}">
+                                                                    {% csrf_token %}
+                                                                    <button type="submit" name="action" value="mark_completed" class="dropdown-item">Mark Completed</button>
+                                                                </form>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                 
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        $('.dropdown-toggle').dropdown();
+                                                    });
+                                                </script>     
                                               </tr>
                                             {% endfor %}
-                                            
                                           </tbody>
                                             <tfoot>
                                                 <tr>
@@ -77,10 +102,10 @@
                                                     <th >Full Name</th>
                                                     <th >Phone</th>
                                                     <th >Order Total</th>
-                                                    <!-- <th >Shipping Fee</th> -->
                                                     <th >Payment</th>
-                                                    <!-- <th >Is Ordered</th> -->
-                                                    <th >Order date</th>
+                                                    <th >Order Status</th>
+                                                    <!-- <th >Order date</th> -->
+                                                    <th >Actions</th>
                                                     
                                                     
                                                 </tr>

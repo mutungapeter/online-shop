@@ -59,7 +59,7 @@ class SellItemForm(forms.ModelForm):
     is_negotiable = forms.BooleanField(required=False, initial=True, widget=forms.CheckboxInput())
     class Meta:
         model = SellItem
-        fields = ["first_name", "last_name", "phone", "email","address_line_1", "address_line_2", "city", "street", "item_name", "item_image", "price",   "is_negotiable"]
+        fields = ["current_location",  "town", "city", "item_name", "item_image", "price", "description",  "is_negotiable"]
         
     def __init__(self, *args, **kwargs):
         super(SellItemForm, self).__init__(*args, **kwargs)

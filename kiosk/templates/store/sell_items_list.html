@@ -34,11 +34,11 @@
                                             <th scope="col">No.</th>
                                               <th scope="col">User</th>
                                               <th scope="col">Phone</th>
-                                              <th scope="col">Email</th>
-                                              <th scope="col">Address Line 1</th>
-                                              <th scope="col">Address Line 2</th>
+                                              <th scope="col">Current Location</th>
+                                              <th scope="col">Town</th>
                                               <th scope="col">City</th>
                                               <th scope="col">Item Name</th>
+                                              <th scope="col">Description</th>
                                               <th scope="col">Price</th>
                                               <th scope="col">Price Negotiable</th>
                                               <th scope="col">Image</th>
@@ -49,12 +49,12 @@
                                             <tr>
                                                 <td>{{ forloop.counter }}</td>
                                               <td>{{object.user.full_name}}</td>
-                                              <td>{{object.phone}}</td>
-                                              <td>{{object.email}}</td>
-                                              <td>{{object.address_line_1}}</td>
-                                              <td>{{object.address_line_2}}</td>
+                                              <td>{{object.user.phone_number}}</td>
+                                              <td>{{object.current_location}}</td>
+                                              <td>{{object.town}}</td>
                                               <td>{{object.city}}</td>
                                               <td>{{object.item_name}}</td>
+                                              <td>{{object.description}}</td>
                                               <td>{{object.price}}</td>
                                               <td>{{object.is_negotiable}}</td>
                                               {% if object.item_image %}
@@ -62,19 +62,19 @@
                                               {% else %}
                                              <td> <img src="#" alt="No Picture"></td>
                                               {% endif %}
-                                              {% comment %} <td><img src="{{ object.item_image.url }}" alt="Item Image" width="100" style="border-radius:50px"></td> {% endcomment %}
+                                              <!-- <td><img src="{{ object.item_image.url }}" alt="Item Image" width="100" style="border-radius:50px"></td>  -->
                                             </tr>
                                             {% endfor %}
                                             
                                           </tbody>
-                                            {% comment %} <tfoot>
+                                          <!-- <tfoot>
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>Product</th>
                                                     <th>Product image</th>
                                                     
                                                 </tr>
-                                            </tfoot> {% endcomment %}
+                                            </tfoot>  -->
                                         </table>
                                     </div>
                                 </div>

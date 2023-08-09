@@ -51,14 +51,14 @@ class Order(models.Model):
     def __str__(self):
         return self.first_name
     
-    def mark_completed(self):
-        if self.status == 'Dispatched':
-            self.status = 'Completed'
-            self.save()
+    # def mark_completed(self):
+    #     if self.status == 'Dispatched':
+    #         self.status = 'Completed'
+    #         self.save()
        
-    def mark_dispatched(self):
-        self.status = 'Dispatched'
-        self.save()
+    # def mark_dispatched(self):
+    #     self.status = 'Dispatched'
+    #     self.save()
             
 class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete = models.CASCADE)

@@ -30,6 +30,7 @@
                                           <div class="card-body pt-1 ">
                                             <form action="{% url 'add_product_variation' %}" method="POST" enctype="multipart/form-data">
                                               {% csrf_token %}
+                                              <label for="id_product">Product</label>
                                               <fieldset class="form-label-group">
                                                 <select name="product" class="form-control" required>
                                                     <option value="" selected disabled>Choose a Product</option>
@@ -37,9 +38,9 @@
                                                         <option value="{{ product.pk }}">{{ product.product_name }}</option>
                                                     {% endfor %}
                                                 </select>
-                                                <label for="id_product">Product</label>
+                                                
                                             </fieldset>
-                                            
+                                            <label for="variation_category">Variation Category</label>
                                             <fieldset class="form-label-group">
                                                 <select name="variation_category" class="form-control" required>
                                                     <option value="" selected disabled>Choose a Variation Category</option>
@@ -47,17 +48,18 @@
                                                         <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                                     {% endfor %}
                                                 </select>
-                                                <label for="variation_category">Variation Category</label>
+                                               
                                             </fieldset>
-                                            
+                                            <label for="variation value">Variation Value</label>
                                                 <fieldset class="form-label-group">
                                                     <input type="text" name="variation_value" placeholder="Variation Value" class="form-control" required value="{{ form.initial.slug }}">
-                                                    <label for="variation value">Variation Value</label>
+                                                    
                                                 </fieldset>
+                                                <label class="form-check-label text-dark" for="id_is_available">Is Active</label>
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <input type="checkbox" name="is_available" class="form-check-input" id="id_is_available" checked>
-                                                        <label class="form-check-label text-dark" for="id_is_available">Is Active</label>
+                                                        
                                                     </div>
                                                 </div>
                                                   <div class="row pt-2">

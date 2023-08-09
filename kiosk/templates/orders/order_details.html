@@ -55,69 +55,6 @@
                                                 {% endif %}
                                             </p>
                                         </li>
-
-                                      
-                                        <!-- Mark Order as complete buttom -->
-                                        <form method="post">
-                                            {% csrf_token %}
-                                            {% if can_mark_completed %}
-                                            <button type="submit" class="btn btn-primary btn-lg  mt-3" style="margin-left: 580px;" name="mark_completed">Mark  Completed</button>
-                                            {% endif %}
-                                        </form>
-                                      
-
-                                        <!-- Dispatch Order button -->
-                                        <button id="dispatchButton" class="btn btn-primary btn-lg text-center"
-                                            style="margin-left: 50px;">Dispatch Order</button>
-                                    
-                                       
-
-                                        <!-- Confirmation Modal -->
-                                        <div class="modal" tabindex="-1" role="dialog" id="confirmationModal">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Confirm Dispatch</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Are you sure you want to dispatch this order?</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Cancel</button>
-                                                        <form method="POST"
-                                                            
-                                                            style="display: inline-block;">
-                                                            {% csrf_token %}
-                                                            {% if can_mark_dispatched %}
-                                                            <button type="submit" name="mark_dispatched" class="btn btn-primary">Yes, Dispatch
-                                                                Order</button>
-                                                                {% endif %}
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <script>
-                                            // JavaScript to display the confirmation modal when the Dispatch Order button is clicked
-                                            document.getElementById("dispatchButton").addEventListener("click", function () {
-                                                $("#confirmationModal").modal("show");
-                                            });
-                                            {% if order.status == "Dispatched" %}
-                                            document.getElementById("dispatchButton").style.display = "none";
-                                            {% endif %}
-                                            {% if order.status == "Completed" %}
-                                            document.getElementById("dispatchButton").style.display = "none";
-                                            {% endif %}
-                                        </script> 
-       
-
-
                                     </ul>
                                 </div>
                             </div>

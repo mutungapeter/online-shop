@@ -202,40 +202,40 @@ def all_payments(request):
    context = {
     "payments": payments,
    }
-
-
    return render(request, "orders/all_payments.html ", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def order_details(request, order_id):
     order_detail = OrderProduct.objects.filter(order__order_number=order_id)
     order = Order.objects.get(order_number=order_id)
     subtotal = 0
     for i in order_detail:
         subtotal += i.product_price * i.quantity
-    
-    if order.status not in ['Completed', 'Cancelled']:
+    if order.status not in ['Completed', 'Dispatched', 'Cancelled']:
         order.status = 'Received'
         order.save()
-    can_mark_completed = order.status not in ['Completed', 'Cancelled']
-    can_mark_dispatched = order.status not in  ['Completed', 'Cancelled', 'Pending']
-
+        
     if request.method == 'POST':
-         if 'mark_completed' in request.POST and can_mark_completed:
-            order.mark_completed()
-         elif 'mark_dispatched' in request.POST and can_mark_dispatched:
-            order.mark_dispatched()
-         return redirect('orders_list')
-                       
+        action = request.POST.get('action')
+        if action == 'mark_completed':
+            if order.status != 'Cancelled' and order.status == 'Dispatched':
+                order.status = 'Completed'
+                order.save()
+            return redirect("orders_list")
+         
+        elif action == 'mark_dispatched':
+            if order.status == 'Received':
+                order.status = 'Dispatched'
+                order.save()
+            return redirect('orders_list')
+    
     context = {
         "order_detail": order_detail,
         "order": order,
         "subtotal": subtotal,
-         "can_mark_completed": can_mark_completed,
-         "can_mark_dispatched": can_mark_dispatched,
     }
-       
-   
+    
     return render(request, "orders/order_details.html", context)
+
 
