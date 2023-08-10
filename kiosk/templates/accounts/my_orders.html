@@ -58,7 +58,8 @@
                                               {% else %}
                                               <td>  <span class="badge badge-secondary badge-pill">{{ order.status }}</span></td>
                                               {% endif %}
-                                              <td><a href="#" class="btn btn-sm btn-primary">Download as PDF</a></td>
+                                              <td><a href="{% url 'generate_pdf' order.order_number %}" class="btn btn-sm btn-primary">Download as PDF</a></td>
+
                                               <td>{{order.created_at}}</td>
                                             </tr>
                                             {% endfor %}

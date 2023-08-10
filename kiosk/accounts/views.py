@@ -17,13 +17,14 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 
-from django.template.loader import get_template
-from reportlab.pdfgen import canvas
-
-from io import BytesIO
-
 import requests
-# Create your views here.
+
+
+from django.template.loader import get_template
+from django.views import View
+from io import BytesIO
+from xhtml2pdf import pisa
+
 
 def register(request):
     if request.method == "POST":
@@ -299,5 +300,31 @@ def order_detail(request, order_id):
     return render(request, "accounts/order_detail.html", context)
 
 
+def generate_pdf(request, order_id):
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(order_number=order_id)
+    subtotal = 0
+    for i in order_detail:
+        subtotal += i.product_price * i.quantity
+    context = {
+        "order_detail": order_detail,
+        "order": order,
+        "subtotal": subtotal,
+    }
 
+    # Render the template to HTML
+    html = render_to_string('accounts/order_detail_pdf.html', context)
 
+    # Create a PDF file using xhtml2pdf
+    buffer = BytesIO()
+    pisa_status = pisa.CreatePDF(html, dest=buffer)
+    if pisa_status.err:
+        return HttpResponse('Error generating PDF', content_type='text/plain')
+
+    # Get the PDF content from the buffer
+    pdf_content = buffer.getvalue()
+    
+    response = HttpResponse(pdf_content, content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="order_detail_{order_id}.pdf"'
+    
+    return response
