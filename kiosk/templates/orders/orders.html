@@ -45,16 +45,16 @@
                                                 <td>{{object.user.full_name}}</td>
                                                 <td>{{object.phone}}</td>
                                                 <td>Ksh {{object.order_total}}</td>
-                                                <td><span class="badge badge-success badge-pill">{{object.payment.status}}</span></td>
+                                                <td><span class="badge badge-success badge-pill  fw-100 p-2">{{object.payment.status}}</span></td>
             
                                                     {% if object.status == "Received" %}
-                                                    <td> <span class="badge badge-primary badge-pill">{{ object.status }}</span></td>
+                                                    <td> <span class="badge badge-primary badge-pill  p-2">{{ object.status }}</span></td>
                                                     {% elif object.status == "Completed" %}
-                                                    <td>  <span class="badge badge-success badge-pill">{{ object.status }}</span></td>
+                                                    <td>  <span class="badge badge-success badge-pill  p-2">{{ object.status }}</span></td>
                                                     {% elif object.status == "Dispatched" %}
-                                                    <td>  <span class="badge badge-warning badge-pill">{{ object.status }}</span></td>
+                                                    <td>  <span class="badge badge-warning badge-pill fw-100 p-2">{{ object.status }}</span></td>
                                                     {% else %}
-                                                    <td>  <span class="badge badge-secondary badge-pill">{{ object.status }}</span></td>
+                                                    <td>  <span class="badge badge-secondary badge-pill  p-2">{{ object.status }}</span></td>
                                                     {% endif %}
 
                                                 <!-- <td>{{object.created_at}}</td> -->

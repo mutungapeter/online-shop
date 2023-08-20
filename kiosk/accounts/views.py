@@ -28,7 +28,8 @@ from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
-from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
+
 
 def register(request):
     if request.method == "POST":
@@ -324,32 +325,35 @@ def generate_pdf(request, order_id):
     styles = getSampleStyleSheet()
     title = Paragraph(f"<b>Order Detail: {order.order_number}</b>", styles["Title"])
     pdf_content.append(title)
-    pdf_content.append(Spacer(1, 0.5 * inch))
+    pdf_content.append(Spacer(1, 1 * inch))
 
-    # Create a table to display order details
     data = [['Product', 'Price', 'Quantity', 'Total']]
+    col_widths = [200, 90, 90, 100]
     for item in order_detail:
         total_price = item.product_price * item.quantity
-        data.append([item.product_name, f"${item.product_price:.2f}", str(item.quantity), f"${total_price:.2f}"])
-    table = Table(data, colWidths=[180, 60, 60, 60])
-    table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-    ]))
+        data.append([item.product.product_name, f"Kshs{item.product_price:.2f}", str(item.quantity), f"Kshs{total_price:.2f}"])
+    table = Table(data, colWidths=col_widths)
     pdf_content.append(table)
 
-    # Add subtotal
-    pdf_content.append(Spacer(1, 0.2 * inch))
-    subtotal_paragraph = Paragraph(f"<b>Subtotal:</b> ${subtotal:.2f}", styles["Normal"])
-    subtotal_paragraph.alignment = TA_CENTER
+    pdf_content.append(Spacer(15, 0.2 * inch))
+    subtotal_paragraph = Paragraph(f"<b>Subtotal:</b> Kshs{subtotal:.2f}", styles["Normal"])
+    subtotal_paragraph.alignment = TA_RIGHT 
     pdf_content.append(subtotal_paragraph)
 
-    # Build the PDF
+    # Calculate total
+    additional_charges = (2 * total_price) / 100
+    GrandTotal = subtotal + additional_charges
+
+    # Add total row
+    total_paragraph = Paragraph(f"<b>Grand_Total:</b> Kshs{GrandTotal:.2f}", styles["Normal"])
+    total_paragraph.alignment = TA_CENTER
+    pdf_content.append(total_paragraph)
+
+        # Calculate total
+    additional_charges = (2 * total_price)/100
+    GrandTotal = subtotal + additional_charges
+        
+        # Build the PDF
     doc.build(pdf_content)
 
     # Get the PDF content from the buffer

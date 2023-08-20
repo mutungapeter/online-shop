@@ -72,7 +72,7 @@
                 <select name="size" class="form-control">
                 <option value="" disabled selected>select</option>
                 {% for i in single_product.variation_set.sizes %}
-                <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>n>
+                <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
                 {% endfor %}
                 </select>
             </div>

@@ -43,17 +43,17 @@
                                               <td>{{order.full_name}}</td>
                                               <td>{{order.phone}}</td>
                                               <td>Ksh {{order.order_total}}</td>
-                                              <td><span class="badge badge-success badge-pill">{{order.payment.status}}</span></td>
+                                              <td><span class="badge badge-success badge-pill p-2">{{order.payment.status}}</span></td>
                                               {% if order.status == "Received" %}
-                                              <td> <span class="badge badge-primary badge-pill">{{ order.status }}</span></td>
+                                              <td> <span class="badge badge-primary badge-pill p-2">{{ order.status }}</span></td>
                                               {% elif order.status == "Completed" %}
-                                              <td>  <span class="badge badge-success badge-pill">{{ order.status }}</span></td>
+                                              <td>  <span class="badge badge-success badge-pill p-2">{{ order.status }}</span></td>
                                               {% elif order.status == "Dispatched" %}
-                                              <td>  <span class="badge badge-warning badge-pill">{{ order.status }}</span></td>
+                                              <td>  <span class="badge badge-warning badge-pill p-2">{{ order.status }}</span></td>
                                               {% else %}
-                                              <td>  <span class="badge badge-secondary badge-pill">{{ order.status }}</span></td>
+                                              <td>  <span class="badge badge-secondary badge-pill p-2">{{ order.status }}</span></td>
                                               {% endif %}
-                                              <td><a href="{% url 'generate_pdf' order.order_number %}" class="btn btn-sm btn-primary">Download as PDF</a></td>
+                                              <td><a href="{% url 'generate_pdf' order.order_number %}" class="btn btn-sm btn-primary" style="width:140px;">Download as PDF</a></td>
 
                                               <td>{{order.created_at}}</td>
                                             </tr>
