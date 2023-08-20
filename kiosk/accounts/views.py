@@ -16,15 +16,19 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
-
 import requests
 
 
 from django.template.loader import get_template
 from django.views import View
 from io import BytesIO
-from xhtml2pdf import pisa
-
+from django.http import HttpResponse
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.lib.enums import TA_CENTER
 
 def register(request):
     if request.method == "POST":
@@ -300,30 +304,58 @@ def order_detail(request, order_id):
     return render(request, "accounts/order_detail.html", context)
 
 
+
+
 def generate_pdf(request, order_id):
     order_detail = OrderProduct.objects.filter(order__order_number=order_id)
     order = Order.objects.get(order_number=order_id)
-    subtotal = 0
-    for i in order_detail:
-        subtotal += i.product_price * i.quantity
-    context = {
-        "order_detail": order_detail,
-        "order": order,
-        "subtotal": subtotal,
-    }
+    subtotal = sum(item.product_price * item.quantity for item in order_detail)
 
-    # Render the template to HTML
-    html = render_to_string('accounts/order_detail_pdf.html', context)
-
-    # Create a PDF file using xhtml2pdf
+    # Create a BytesIO buffer to store the PDF
     buffer = BytesIO()
-    pisa_status = pisa.CreatePDF(html, dest=buffer)
-    if pisa_status.err:
-        return HttpResponse('Error generating PDF', content_type='text/plain')
+
+    # Create the PDF document using ReportLab
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+
+    # Create a list to store the content of the PDF
+    pdf_content = []
+
+    # Add a title to the PDF
+    styles = getSampleStyleSheet()
+    title = Paragraph(f"<b>Order Detail: {order.order_number}</b>", styles["Title"])
+    pdf_content.append(title)
+    pdf_content.append(Spacer(1, 0.5 * inch))
+
+    # Create a table to display order details
+    data = [['Product', 'Price', 'Quantity', 'Total']]
+    for item in order_detail:
+        total_price = item.product_price * item.quantity
+        data.append([item.product_name, f"${item.product_price:.2f}", str(item.quantity), f"${total_price:.2f}"])
+    table = Table(data, colWidths=[180, 60, 60, 60])
+    table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ]))
+    pdf_content.append(table)
+
+    # Add subtotal
+    pdf_content.append(Spacer(1, 0.2 * inch))
+    subtotal_paragraph = Paragraph(f"<b>Subtotal:</b> ${subtotal:.2f}", styles["Normal"])
+    subtotal_paragraph.alignment = TA_CENTER
+    pdf_content.append(subtotal_paragraph)
+
+    # Build the PDF
+    doc.build(pdf_content)
 
     # Get the PDF content from the buffer
     pdf_content = buffer.getvalue()
     
+    # Create an HttpResponse with the PDF content and set appropriate headers for downloading
     response = HttpResponse(pdf_content, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="order_detail_{order_id}.pdf"'
     

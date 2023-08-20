@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'includes/navbar.html' %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+{% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+        {% include 'includes/dashboard_sidebar.html' %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">Logged in as: </strong>
+                <span  class="badge badge-primary badge-pill">{{user.full_name}}</span>
+            </header>
+            <div class="card-body">
+                <div class="row"> 
+                    {% if user.is_authenticated and user.is_active and not user.is_admin and not user.is_superadmin %}
+                    <div class="col-md-6">
+                        <div class="card" style="text-align:center;">
+                            <div class="card-body">
+                                <h4 lass="card-title"><span class="badge badge-primary badge-pill">Total Orders</span></h4>
+                                <h4><span class="badge badge-warning badge-pill">{{orders_count}}</span></h4>
+                                <a href="{% url 'my_orders' %}">View Orders</a>
+                               
+                            </div>
+                        </div>
+                     </div>
+                     {% endif %}
+                     <div class="col-md-12">
+                        <div class="card" style="text-align:center;">
+                            <div class="card-body">
+                        {% if userprofile.profile_picture %}
+                        <img src="{{userprofile.profile_picture.url}}" alt="Profile Picture" width="100" style="border-radius:50px">
+                        {% else %}
+                        <img src="#" alt="No Picture">
+                        {% endif %}
+                                <p class="mb-0"><span class="badge badge-warning badge-pill">{{user.email}}</span></p>
+                                <p><span class="badge badge-danger badge-pill">{{user.phone_number}}</span></p>
+
+                            </div>
+                        </div>
+                     </div>
+                </div> <!-- row.// -->
+            </div> <!-- card-body .// -->
+            
+             
+            </article> <!-- order-group.// --> 
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+    
+    {% include 'includes/footer.html' %}
+  
+{% endblock %}

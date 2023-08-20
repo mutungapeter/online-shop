@@ -1,0 +1,329 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="img/logo/logo.png" rel="icon">
+  <title>Online Furniture Shop  - Dashboard</title>
+  <link href="{% static 'dashboard/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dashboard/vendor/fontawesome-free/css/all.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dashboard/vendor/fontawesome-free/css/fontawesome.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dashboard/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dashboard/css/ruang-admin.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+  
+  <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+  <link href="{% static 'fonts/fontawesome/css/all.min.css' %}" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+
+
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'dashboard' %}">
+            <div class="sidebar-brand-icon">
+            </div>
+            <div class="sidebar-brand-text mx-3">Online Furniture Shop </div>
+          </a>
+          <hr class="sidebar-divider my-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span></a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile"
+              aria-expanded="true" aria-controls="collapseProfile">
+              <i class="far fa-fw fa-window-maximize"></i>
+              <span>Profile</span>
+            </a>
+            <div id="collapseProfile" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">View Profile</h6>
+                <a class="collapse-item" href="{% url 'edit_profile' %}">Edit Profile</a> 
+                <a class="collapse-item" href="{% url 'change_password' %}">Change Password</a>      
+              </div>
+            </div>
+          </li>
+
+          {% if user.is_authenticated and user.is_active and not user.is_admin and not user.is_superadmin %}
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
+              aria-expanded="true" aria-controls="collapseBootstrap">
+              <i class="far fa-fw fa-window-maximize"></i>
+              <span>Orders</span>
+            </a>
+            <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Orders</h6>
+                <a class="collapse-item" href="{% url 'my_orders' %}">View My Orders</a>      
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
+              aria-controls="collapseForm">
+              <i class="fab fa-fw fa-wpforms"></i>
+              <span>Post item To sell</span>
+            </a>
+            <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                
+                <h6 class="collapse-header">Post</h6>
+                <a class="collapse-item" href="{% url 'sell_item' %}">Post Item</a>
+
+               
+              </div>
+            </div>
+          </li>
+          {% endif %}
+          <hr class="sidebar-divider">
+
+          {% if user.is_authenticated and user.is_superadmin %}
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePaymenrs" aria-expanded="true"
+              aria-controls="collapsePaymenrs">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Payments</span>
+            </a>
+            <div id="collapsePaymenrs" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Payments</h6>
+                <a class="collapse-item" href="{% url 'payments_list' %}">View Payments</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="true"
+              aria-controls="collapseCategories">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Categories</span>
+            </a>
+            <div id="collapseCategories" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Categories</h6>
+                <a class="collapse-item" href="{% url 'categories' %}">View Categories</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrderedProducts" aria-expanded="true"
+              aria-controls="collapseOrderedProducts">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Ordered Products</span>
+            </a>
+            <div id="collapseOrderedProducts" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Ordered Products</h6>
+                <a class="collapse-item" href="{% url 'ordered_products' %}">View Ordered Products</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders" aria-expanded="true"
+              aria-controls="collapseOrders">
+              <i class="fas fa-fw fa-table"></i>
+              <span>All Orders</span>
+            </a>
+            <div id="collapseOrders" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Orders</h6>
+                <a class="collapse-item" href="{% url 'orders_list' %}">View Orders</a>
+              </div>
+            </div>
+          </li>
+          <hr class="sidebar-divider">
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true"
+              aria-controls="collapseProducts">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Products</span>
+            </a>
+            <div id="collapseProducts" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Products</h6>
+                <a class="collapse-item" href="{% url 'products' %}">View Products</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseItems" aria-expanded="true"
+              aria-controls="collapseItems">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Buy Posted Items</span>
+            </a>
+            <div id="collapseItems" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Buy Items</h6>
+                <a class="collapse-item" href="{% url "sell_buy_items" %}">Buy Posted Products</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGallery" aria-expanded="true"
+              aria-controls="collapseGallery">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Product Gallery</span>
+            </a>
+            <div id="collapseGallery" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Product Gallery</h6>
+                <a class="collapse-item" href="{% url 'product_gallery' %}">View Products Gallery</a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVariations" aria-expanded="true"
+              aria-controls="collapseVariations">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Product Variations</span>
+            </a>
+            <div id="collapseVariations" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Product Variations</h6>
+                <a class="collapse-item" href="{% url 'product_variation' %}">View Product Variations</a>
+              </div>
+            </div>
+          </li>
+          {% endif %}
+          <hr class="sidebar-divider">
+        </ul>
+        <!-- Sidebar -->
+        <div id="content-wrapper" class="d-flex flex-column">
+          <div id="content">
+            <!-- TopBar -->
+            <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+              <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="navbar-nav ml-auto">
+                <div class="topbar-divider d-none d-sm-block"></div>
+                <li class="nav-item dropdown no-arrow">
+                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {% if userprofile.profile_picture %}
+                        <img src="{{userprofile.profile_picture.url}}" alt="Profile Picture" width="100" style="border-radius:50px">
+                        {% else %}
+                        <img src="#" alt="No Set Picture">
+                        {% endif %}
+                    <span class="ml-2 d-none d-lg-inline text-white small">{{user.full_name}}</span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">
+                      <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Profile
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Settings
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Activity Log
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Logout
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+            
+            <!-- Topbar -->
+    
+            <!-- Container Fluid-->
+            <div class="container-fluid" id="container-wrapper">
+              <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                </ol>
+              </div>
+              {% block content %}
+ 
+             {% endblock %}
+    
+              <!-- Modal Logout -->
+              <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure you want to logout?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                      <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+            </div>
+            <!---Container Fluid-->
+          </div>
+          <!-- Footer -->
+          {% comment %} <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
+                  <b><a href="#" target="_blank">Book Msanii</a></b>
+                </span>
+              </div>
+            </div>
+          </footer> {% endcomment %}
+          <!-- Footer -->
+        </div>
+      </div>
+    
+      <!-- Scroll to top -->
+      <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+      </a>
+    
+    
+
+
+
+
+
+
+
+
+      <script src="{% static 'js/script.js'%}" type="text/javascript"></script>
+<script src="{% static 'dashboard/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'dashboard/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'dashboard/js/ruang-admin.min.js' %}"></script>
+<script src="{% static 'dashboard/vendor/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'dashboard/js/demo/chart-area-demo.js' %}"></script>  
+<script src="{% static 'app-assets/vendors/js/tables/datatable/pdfmake.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/tables/datatable/vfs_fonts.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/tables/datatable/datatables.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/tables/datatable/datatables.buttons.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/tables/datatable/buttons.html5.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/tables/datatable/buttons.print.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'app-assets/js/scripts/datatables/datatable.js' %}"></script>
+</body>
+
+</html>

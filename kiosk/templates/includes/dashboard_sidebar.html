@@ -27,7 +27,6 @@
     <div class="card">
     <ul class="list-group list-group-flush">
         <a class="list-group-item {% if '/accounts/' == request.path  %}active{% endif %}" href="{% url 'dashboard' %}"> Dashboard </a>
-        {% comment %} <a class="list-group-item {% if '//' == request.path  %}active{% endif %}" href="#">Users</a> {% endcomment %}
         <a class="list-group-item {% if '/categories/'  in request.path %}active{% endif %}" href="{% url 'categories' %}"> Categories</a>
        
         <a class="list-group-item {% if '/ordered_products/'   in request.path %}active{% endif %}" href="{% url 'ordered_products' %}"> Ordered Products</a>
