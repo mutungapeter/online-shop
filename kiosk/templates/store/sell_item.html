@@ -4,128 +4,152 @@
 
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-conten padding-y bg">
-{% include 'includes/alerts.html' %}
+    {% include 'includes/alerts.html' %}
+    {% if user.is_authenticated and user.is_active and not user.is_admin and not user.is_superadmin %}
     <div class="container">
         <div class="row">
-        <main class="col-md-12">
-            <article class="card">
-      <div class="content-wrapper">
-          <div class="content-body">
-              <section class="row flexbox-container">
-                  <div class="col-md-12 d-flex justify-content-center">
-                      <div class="card bg-authentication rounded-0 mb-0 w-100">
-                          <div class="row m-0">
-                            
-                              <div class="col-md-12 p-0">
-                                  <div class="card rounded-0 mb-0 px-2">
-                                      <div class="card-header pb-1">
-                                          <div class="card-title">
-                                              <h4 class="mb-0">Sell Your Item</h4>
-                                          </div>
-                                      </div>
-                                      <p class="px-2">.</p>
-                                      <div class="card-content">
-                                          <div class="card-body pt-1 ">
-                                            <form action="{% url 'sell_item' %}" method="POST" enctype="multipart/form-data">
-                                              {% csrf_token %}  
-                                              
-                                              
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
-                                                    <label for="Current Location">Current Location</label>
-                                                    <fieldset class="form-label-group">
-                                                        <input type="text" name="current_location" placeholder="Current Location" class="form-control" required>
-                                            
-                                                    </fieldset>
-                                                </div>
-                                            
-                                                <div class="col-md-6 col-12">
-                                                    <label for="City ">City</label>
-                                                    <fieldset class="form-label-group">
-                                                        <input type="text" name="city" placeholder="city" class="form-control" required>
-                                            
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <label for="town">Town</label>
-                                                    <fieldset class="form-label-group ">
-                                                        <input type="text" name="town" placeholder="Town" class="form-control" required>
-                                                
-                                                    </fieldset>
-                                                </div>
-                                                
-                                                <div class="col-md-6 col-12">
-                                                    <label for="Item Name">Item Name</label>
-                                            <fieldset class="form-label-group">
-                                                <input type="text" name="item_name" placeholder="Item Name" class="form-control" required>
-                                            
-                                            </fieldset>
-                                                </div>
+            <main class="col-md-12">
+                <article class="card">
+                    <div class="content-wrapper">
+                        <div class="content-body">
+                            <section class="row flexbox-container">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <div class="card bg-authentication rounded-0 mb-0 w-100">
+                                        <div class="row m-0">
 
-                                                <div class="col-md-6 col-12">
-                                                    <label for="street">Description</label>
-                                                    <fieldset class="form-label-group">
-                                                        <input type="text" name="description" placeholder="description" class="form-control" required>
-                                                
-                                                    </fieldset>
-                                                </div>
-                                                
-                                                <div class="col-md-6 col-12">
-                                                    <label for="price">price</label>
-                                                    <fieldset class="form-label-group ">
-                                                        <input type="text" name="price" placeholder="price" class="form-control" required>
-                                                    
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <label for="">Item image</label>
-                                                    <fieldset class="form-label-group mt-2">
-                                                        <input type="file" name="item_image" placeholder="Item Image" class="form-control" required>
-                                                    
-                                                    </fieldset>
-                                                </div>
-                                                
-                                                <div class="col-md-6 col-12">
-                                                    <label class="form-check-label text-dark" for="is_negotiable">is Negotiable</label>
-                                                <div class="form-group">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" name="is_negotiable" class="form-check-input" id="is_negotiable" checked>
-                                                        
+                                            <div class="col-md-12 p-0">
+                                                <div class="card rounded-0 mb-0 px-2">
+                                                    <div class="card-header pb-1">
+                                                        <div class="card-title">
+                                                            <h4 class="mb-0">Sell Your Item</h4>
+                                                        </div>
+                                                    </div>
+                                                    <p class="px-2">.</p>
+                                                    <div class="card-content">
+                                                        <div class="card-body pt-1 ">
+                                                            <form action="{% url 'sell_item' %}" method="POST"
+                                                                enctype="multipart/form-data">
+                                                                {% csrf_token %}
+
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6 col-12">
+                                                                        <label for="Current Location">Current
+                                                                            Location</label>
+                                                                        <fieldset class="form-label-group">
+                                                                            <input type="text" name="current_location"
+                                                                                placeholder="Current Location"
+                                                                                class="form-control" required>
+
+                                                                        </fieldset>
+                                                                    </div>
+
+                                                                    <div class="col-md-6 col-12">
+                                                                        <label for="City ">City</label>
+                                                                        <fieldset class="form-label-group">
+                                                                            <input type="text" name="city"
+                                                                                placeholder="city" class="form-control"
+                                                                                required>
+
+                                                                        </fieldset>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-12">
+                                                                        <label for="town">Town</label>
+                                                                        <fieldset class="form-label-group ">
+                                                                            <input type="text" name="town"
+                                                                                placeholder="Town" class="form-control"
+                                                                                required>
+
+                                                                        </fieldset>
+                                                                    </div>
+
+                                                                    <div class="col-md-6 col-12">
+                                                                        <label for="Item Name">Item Name</label>
+                                                                        <fieldset class="form-label-group">
+                                                                            <input type="text" name="item_name"
+                                                                                placeholder="Item Name"
+                                                                                class="form-control" required>
+
+                                                                        </fieldset>
+                                                                    </div>
+
+                                                                    <div class="col-md-6 col-12">
+                                                                        <label for="street">Description</label>
+                                                                        <fieldset class="form-label-group">
+                                                                            <input type="text" name="description"
+                                                                                placeholder="description"
+                                                                                class="form-control" required>
+
+                                                                        </fieldset>
+                                                                    </div>
+
+                                                                    <div class="col-md-6 col-12">
+                                                                        <label for="price">price</label>
+                                                                        <fieldset class="form-label-group ">
+                                                                            <input type="text" name="price"
+                                                                                placeholder="price" class="form-control"
+                                                                                required>
+
+                                                                        </fieldset>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-12">
+                                                                        <label for="">Item image</label>
+                                                                        <fieldset class="form-label-group mt-2">
+                                                                            <input type="file" name="item_image"
+                                                                                placeholder="Item Image"
+                                                                                class="form-control" required>
+
+                                                                        </fieldset>
+                                                                    </div>
+
+                                                                    <div class="col-md-6 col-12">
+                                                                        <label class="form-check-label text-dark"
+                                                                            for="is_negotiable">is Negotiable</label>
+                                                                        <div class="form-group">
+                                                                            <div class="form-check">
+                                                                                <input type="checkbox"
+                                                                                    name="is_negotiable"
+                                                                                    class="form-check-input"
+                                                                                    id="is_negotiable" checked>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row pt-2">
+                                                                    <div class="col-12 col-md-12 mb-1">
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary btn-block ">Post Item
+                                                                            to Us </button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            {{ form.errors }}
+
+
+
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                </div>
-                                                </div>
-                                           
-                                                  <div class="row pt-2">
-                                                      <div class="col-12 col-md-12 mb-1">
-                                                          <button type="submit" class="btn btn-primary btn-block ">Post Item to Us </button>
-                                                      </div>
-                                                  </div>
-                                              </form>
-                                              {{ form.errors }}
-                                          
-                                          
-                                        
                                             </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
 
-          </div>
-      </div>
-            </article> 
-        </main>
+                        </div>
+                    </div>
+                </article>
+            </main>
+        </div>
     </div>
-    </div>
-    
-    
-    </section>
-    <!-- ========================= SECTION CONTENT END// ========================= -->
-    
+    {% endif %}
 
-  
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
 {% endblock %}

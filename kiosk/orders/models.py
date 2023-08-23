@@ -29,9 +29,9 @@ class Order(models.Model):
     phone = models.CharField(max_length=15)
     email = models.EmailField(max_length=50)
     address_line_1 = models.CharField(max_length=50)
-    address_line_2 = models.CharField(max_length=50, blank=True)
-    country = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
+    address_line_2 = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True)
     city = models.CharField(max_length=50)
     order_note = models.CharField(max_length=100, blank=True)
     order_total = models.FloatField()
@@ -51,14 +51,6 @@ class Order(models.Model):
     def __str__(self):
         return self.first_name
     
-    # def mark_completed(self):
-    #     if self.status == 'Dispatched':
-    #         self.status = 'Completed'
-    #         self.save()
-       
-    # def mark_dispatched(self):
-    #     self.status = 'Dispatched'
-    #     self.save()
             
 class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete = models.CASCADE)
